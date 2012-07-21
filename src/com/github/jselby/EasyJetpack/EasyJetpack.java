@@ -33,7 +33,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 public class EasyJetpack extends JavaPlugin implements Listener {
-	double pluginVersion = 0.1;
+	double pluginVersion = 0.2;
 	
 	// Load plugin
 	@Override
@@ -49,12 +49,28 @@ public class EasyJetpack extends JavaPlugin implements Listener {
 		 
 	}
 	
+	public void setDefaults() {
+		this.getConfig().set("jetpack.enabled", true);
+		this.getConfig().set("jetpack.id", 315);
+		this.getConfig().set("boots.enabled", true);
+		this.getConfig().set("boots.id", 301);
+		this.getConfig().set("boots.fallEffects", true);
+		this.saveConfig();
+	}
+	
+	public void checkConfig() {
+		if (this.getConfig().get("jetpack.id") == null){
+			setDefaults();
+		}
+	}
+
     @EventHandler
     public void onPlayerFall(EntityDamageEvent event) {
+    	checkConfig();
     	if (event.getEntity().getType() == EntityType.PLAYER) {
     		Player player = (Player)event.getEntity();
-        	if (player.hasPermission("easyjetpack.softlanding") && player.getInventory().getArmorContents()[0].getTypeId() == 301 && event.getCause() == EntityDamageEvent.DamageCause.FALL) {
-        		if (event.getDamage() > 10){
+        	if (player.hasPermission("easyjetpack.softlanding") && player.getInventory().getArmorContents()[0].getTypeId() == (int) this.getConfig().get("boots.id") && event.getCause() == EntityDamageEvent.DamageCause.FALL && (boolean) this.getConfig().get("boots.enabled")) {
+        		if (event.getDamage() > 10 && (boolean) this.getConfig().get("boots.fallEffects")){
                     PotionEffect confusion = new PotionEffect(PotionEffectType.CONFUSION, 140, 2);
                     player.addPotionEffect(confusion, true);
         		}
@@ -62,10 +78,12 @@ public class EasyJetpack extends JavaPlugin implements Listener {
         	}
     	}
     }
+    
 	@EventHandler
     public void onPlayerEvent(PlayerToggleSneakEvent event) {
+		checkConfig();
 		Player player = event.getPlayer();
-		if (player.isSneaking() && player.hasPermission("easyjetpack.fly") && player.getInventory().getArmorContents()[2].getTypeId() == 315){
+		if (player.isSneaking() && player.hasPermission("easyjetpack.fly") && (boolean) this.getConfig().get("jetpack.enabled") && player.getInventory().getArmorContents()[2].getTypeId() == (int) this.getConfig().get("jetpack.id")){
 			Vector dir = player.getLocation().getDirection();
 		    Vector vec = new Vector(dir.getX() * 0.8D, 0.8D, dir.getZ() * 0.8D);
 		    player.setVelocity(vec);
