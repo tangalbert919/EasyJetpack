@@ -7,6 +7,7 @@ permissions:
       children:
         easyjetpack.softlanding: true
         easyjetpack.fly: true
+        easyjetpack.fuelless: true
    easyjetpack.softlanding:
       description: Enables the use of anti-fall damage boots
       default: op
