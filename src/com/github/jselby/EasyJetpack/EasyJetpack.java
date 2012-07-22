@@ -63,6 +63,7 @@ public class EasyJetpack extends JavaPlugin implements Listener {
 		this.getConfig().set("fuel.enabled", true);
 		this.getConfig().set("fuel.uses", 10);
 		this.getConfig().set("fuel.id", 263);
+		this.getConfig().set("chat.messages", true);
 		this.saveConfig();
 	}
 	
@@ -96,7 +97,9 @@ public class EasyJetpack extends JavaPlugin implements Listener {
     public void damageJetpack(Player player){
 		player.getInventory().getArmorContents()[2].setDurability((short) (player.getInventory().getArmorContents()[2].getDurability()+1));
 		if (player.getInventory().getArmorContents()[2].getDurability() > 150){
-			player.sendMessage(ChatColor.RED + "Your jetpack broke!");
+    		if ((boolean) this.getConfig().get("chat.messages")){
+    			player.sendMessage(ChatColor.RED + "Your jetpack broke!");
+    		}
 			player.getInventory().setChestplate(getAir());
 		}
     }
@@ -122,12 +125,16 @@ public class EasyJetpack extends JavaPlugin implements Listener {
     	if (!player.hasPermission("easyjetpack.fuelless")){
     		if (player.getItemInHand().getDurability() > 100){
    				if (player.getItemInHand().getAmount() == 1){
-            		player.sendMessage("You used all your " + player.getItemInHand().getType().name().toLowerCase().replace("_", " ") + ".");
+   					if ((boolean) this.getConfig().get("chat.messages")){
+   						player.sendMessage("You used all your " + player.getItemInHand().getType().name().toLowerCase().replace("_", " ") + ".");
+   					}
             		player.setItemInHand(getAir());
             	} else {
             		player.getItemInHand().setAmount(player.getItemInHand().getAmount()-1);
             		player.getItemInHand().setDurability((short) 0);
-            		player.sendMessage("You used up a " + player.getItemInHand().getType().name().toLowerCase().replace("_", " ") + ".");
+            		if ((boolean) this.getConfig().get("chat.messages")){
+            			player.sendMessage("You used up a " + player.getItemInHand().getType().name().toLowerCase().replace("_", " ") + ".");
+            		}
             	}
    			} else {
    				player.getItemInHand().setDurability((short) ((short) player.getItemInHand().getDurability() + (100/((int) this.getConfig().get("fuel.uses") - 1))));
@@ -137,31 +144,38 @@ public class EasyJetpack extends JavaPlugin implements Listener {
     
     public void noFuel(Player player){
 		ItemStack fuel = new ItemStack((int)this.getConfig().get("fuel.id")); 
-		player.sendMessage(ChatColor.RED + "You don't have any " + fuel.getType().name().toLowerCase().replace("_", " ") + ".");
-    }
+		if ((boolean) this.getConfig().get("chat.messages")){
+			player.sendMessage(ChatColor.RED + "You don't have any " + fuel.getType().name().toLowerCase().replace("_", " ") + ".");
+		}
+	}
         
 	@EventHandler
     public void onPlayerEvent(PlayerToggleSneakEvent event) {
 		checkConfig();
 		Player player = event.getPlayer();
-		if (player.isSneaking() && player.hasPermission("easyjetpack.fly") && (boolean) this.getConfig().get("jetpack.enabled") && player.getInventory().getArmorContents()[2].getTypeId() == (int) this.getConfig().get("jetpack.id")){
-            if (player.getItemInHand().getTypeId() == (int) this.getConfig().get("fuel.id") && (boolean) this.getConfig().get("fuel.enabled")){
-            	jetpackEffect(player);
-            	useFuel(player);
-            	if((boolean) this.getConfig().get("jetpack.durability")){
-            		damageJetpack(player);
-            	}
-            	launchPlayer(player);
-            } else {
-            	if ((boolean) this.getConfig().get("fuel.enabled")){
-            		noFuel(player);
-            	} else {
-                	jetpackEffect(player);
-                	if((boolean) this.getConfig().get("jetpack.durability")){
-                		damageJetpack(player);
-                	}
-                	launchPlayer(player);
-            	}        	
+    	
+		if (player.isSneaking() && player.hasPermission("easyjetpack.fly")){
+			if ((boolean) this.getConfig().get("jetpack.enabled") && player.getInventory().getArmorContents()[2].getTypeId() == (int) this.getConfig().get("jetpack.id"))
+			{
+				if (player.getItemInHand().getTypeId() == (int) this.getConfig().get("fuel.id") && (boolean) this.getConfig().get("fuel.enabled"))
+				{
+					jetpackEffect(player);
+					useFuel(player);
+					if((boolean) this.getConfig().get("jetpack.durability")){
+						damageJetpack(player);
+					}
+					launchPlayer(player);
+				} else {
+					if ((boolean) this.getConfig().get("fuel.enabled")){
+						noFuel(player);
+					} else {
+						jetpackEffect(player);
+						if((boolean) this.getConfig().get("jetpack.durability")){
+							damageJetpack(player);
+						}
+						launchPlayer(player);
+					} 
+				}
             }
 		}
 	}
