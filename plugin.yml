@@ -1,6 +1,6 @@
 name: EasyJetpack
 main: com.github.jselby.EasyJetpack.EasyJetpack
-version: 0.3
+version: 0.5
 permissions:
    easyjetpack.*:
       description: All permissions in EasyJetpack
@@ -17,3 +17,8 @@ permissions:
    easyjetpack.fuelless:
       description: Fly without fuel
       default: op
+commands:
+   easyjetpack:
+      description: EasyJetpack commands
+      usage: /easyjetpack reload
+      permission: easyjetpack.reload
