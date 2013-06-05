@@ -234,8 +234,9 @@ public class EasyJetpack extends JavaPlugin implements Listener {
 	public void onPlayerFall(EntityDamageEvent event) {
 		checkConfig();
 		if (event.getEntity() instanceof Player) {
-			if (event.getCause() == DamageCause.FALL) {
-				Player player = (Player) event.getEntity();
+			Player player = (Player) event.getEntity();
+			if (player.hasPermission("easyjetpack.softlanding") && checkPlayerWearingBoots(player) && event.getCause() == EntityDamageEvent.DamageCause.FALL && Boolean.parseBoolean((String) this.getConfig().getString("boots.enabled"))) {
+
 				if (Boolean.parseBoolean((String) this.getConfig().getString("boots.noFallDamageAtAll"))) {
 					// Stop player getting fall damage
 					event.setCancelled(true);
@@ -243,17 +244,15 @@ public class EasyJetpack extends JavaPlugin implements Listener {
 					// Stop player getting fall damage
 					event.setCancelled(true);
 				}
-				if (player.hasPermission("easyjetpack.softlanding") && checkPlayerWearingBoots(player) && event.getCause() == EntityDamageEvent.DamageCause.FALL && Boolean.parseBoolean((String) this.getConfig().getString("boots.enabled"))) {
 
-					// Confuse the player, if they take more then 5 hearts of damage (Enabled in config)
-					if (event.getDamage() > 10 && Boolean.parseBoolean((String) this.getConfig().getString("boots.fallEffects"))) {
-						PotionEffect confusion = new PotionEffect(PotionEffectType.CONFUSION, 140, 2);
-						player.addPotionEffect(confusion, true);
-					}
-
-					// Stop player getting fall damage
-					event.setCancelled(true);
+				// Confuse the player, if they take more then 5 hearts of damage (Enabled in config)
+				if (event.getDamage() > 10 && Boolean.parseBoolean((String) this.getConfig().getString("boots.fallEffects"))) {
+					PotionEffect confusion = new PotionEffect(PotionEffectType.CONFUSION, 140, 2);
+					player.addPotionEffect(confusion, true);
 				}
+
+				// Stop player getting fall damage
+				event.setCancelled(true);
 			}
 		}
 	}
