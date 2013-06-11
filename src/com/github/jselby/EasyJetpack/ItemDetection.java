@@ -159,6 +159,7 @@ public class ItemDetection {
 		}
 	}
 
+	// Returns if the configuration allows custom items
 	public static boolean isUsingCustomItems() {
 		return EasyJetpack.getInstance().getConfig().getBoolean("item.usecustomitems");
 	}

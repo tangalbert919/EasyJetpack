@@ -71,6 +71,7 @@ public class ConfigHandler {
 
 	public static void checkConfig() {
 		// Checks if the config exists
+		// If not, create it
 		if (EasyJetpack.getInstance().getConfig().get("jetpack.id") == null) {
 			try {
 				// If it doesn't exist (plugin first being run for example),

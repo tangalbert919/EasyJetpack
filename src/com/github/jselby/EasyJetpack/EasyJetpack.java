@@ -196,6 +196,7 @@ public class EasyJetpack extends JavaPlugin implements Listener {
 		CustomArmor.doItemCraft(event);
 	}
 
+	// Reload command
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) {
 		if (cmd.getName().equalsIgnoreCase("easyjetpack")) {

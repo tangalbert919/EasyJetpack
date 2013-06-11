@@ -11,9 +11,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class CustomArmor {
 	public static boolean isValidItem(ItemStack item) {
+		// Checks if we are using custom items
 		if (!ItemDetection.isUsingCustomItems()) {
 			return true;
 		}
+		// If we are, compare the itemstack to them
 		List<String> displayName1 = item.getItemMeta().getLore();
 		List<String> displayName2 = getJetpack().getItemMeta().getLore();
 		List<String> displayName3 = getBoots().getItemMeta().getLore();
@@ -24,6 +26,7 @@ public class CustomArmor {
 	}
 
 	public static ItemStack getJetpack() {
+		// returns a instance of the jetpack
 		ItemStack stack = new ItemStack(Material.GOLD_CHESTPLATE, 1);
 		ItemMeta im = stack.getItemMeta();
 		ArrayList<String> list = new ArrayList<String>();
@@ -37,6 +40,7 @@ public class CustomArmor {
 	}
 
 	public static ShapedRecipe getJetpackRecipe() {
+		// Builds a recipe for the jetpack
 		ShapedRecipe recipe = new ShapedRecipe(getJetpack());
 		recipe.shape(" I ", " G ", " F ");
 		recipe.setIngredient('I', Material.STONE);
@@ -46,6 +50,7 @@ public class CustomArmor {
 	}
 	
 	public static ItemStack getBoots() {
+		// returns a instance of the fall boots
 		ItemStack stack = new ItemStack(Material.LEATHER_BOOTS, 1);
 		ItemMeta im = stack.getItemMeta();
 		ArrayList<String> list = new ArrayList<String>();
@@ -58,6 +63,7 @@ public class CustomArmor {
 	}
 
 	public static ShapedRecipe getBootRecipe() {
+		// Builds a recipe for the fall boots
 		ShapedRecipe recipe = new ShapedRecipe(getBoots());
 		recipe.shape("   ", "FGF", "III");
 		recipe.setIngredient('I', Material.IRON_INGOT);
@@ -67,6 +73,7 @@ public class CustomArmor {
 	}
 
 	public static void register() {
+		// Registers the recipes with Bukkit
 		if (!ItemDetection.isUsingCustomItems()) {
 			return;
 		}
@@ -75,6 +82,7 @@ public class CustomArmor {
 	}
 
 	public static void doItemCraft(PrepareItemCraftEvent event) {
+		// Allows custom items to appear in the crafting table
 		if (!ItemDetection.isUsingCustomItems()) {
 			return;
 		}
