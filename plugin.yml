@@ -1,6 +1,6 @@
 name: EasyJetpack
-main: com.github.jselby.EasyJetpack.EasyJetpack
-version: 0.5
+main: com.github.jselby.easyjetpack.EasyJetpack
+version: 0.6
 permissions:
    easyjetpack.*:
       description: All permissions in EasyJetpack
@@ -19,6 +19,6 @@ permissions:
       default: op
 commands:
    easyjetpack:
-      description: EasyJetpack commands
+      description: Reload the EasyJetpack configuration
       usage: /easyjetpack reload
       permission: easyjetpack.reload
