@@ -6,6 +6,11 @@
 	</target>
 	<target name="getbukkit">
 		<echo>Downloading latest Bukkit snapshot...</echo>
+		<exec executable="..\\wget">
+			<arg value="--output-document=bukkit.jar" />
+			<arg value="--nv" />
+			<arg value="http://dl.bukkit.org/downloads/bukkit/get/latest/bukkit-dev.jar" />
+		</exec>
 		<get src="http://dl.bukkit.org/downloads/bukkit/get/latest/bukkit-dev.jar" usetimestamp="true" dest="bukkit.jar"/>
 	</target>
 	<target depends="getbukkit" name="compile">
