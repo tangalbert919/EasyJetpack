@@ -19,11 +19,7 @@
 		<javac srcdir="src" destdir="bin" classpath="bukkit.jar" />
 	</target>
 	<target name="jar">
-		<tstamp>
-			<format property="current.time"
-				            pattern="yyyyMMdd_HHmmss" />
-		</tstamp>
-		<jar destfile="easyjetpack-${current.time}-SNAPSHOT.jar">
+		<jar destfile="easyjetpack-${env.BUILD_NUMBER}-SNAPSHOT.jar">
 			<fileset file="plugin.yml" />
 			<fileset dir="./bin"/>
 		</jar>
