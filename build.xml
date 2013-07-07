@@ -5,10 +5,8 @@
 		<mkdir dir="bin"/>
 	</target>
 	<target name="getbukkit">
-		<delete>
-			<fileset file="bukkit.jar"/>
-		</delete>
-		<get src="http://dl.bukkit.org/downloads/bukkit/get/latest/bukkit-dev.jar" dest="bukkit.jar"/>
+		<echo>Downloading latest Bukkit snapshot...</echo>
+		<get src="http://dl.bukkit.org/downloads/bukkit/get/latest/bukkit-dev.jar" usetimestamp="true" dest="bukkit.jar"/>
 	</target>
 	<target depends="getbukkit" name="compile">
 		<javac srcdir="src" destdir="bin" classpath="bukkit.jar" />
