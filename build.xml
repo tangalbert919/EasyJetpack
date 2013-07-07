@@ -19,6 +19,7 @@
 		<javac srcdir="src" destdir="bin" classpath="bukkit.jar" />
 	</target>
 	<target name="jar">
+		<property environment="env" /> 
 		<jar destfile="easyjetpack-${env.BUILD_NUMBER}-SNAPSHOT.jar">
 			<fileset file="plugin.yml" />
 			<fileset dir="./bin"/>
