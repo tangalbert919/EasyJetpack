@@ -23,9 +23,9 @@ permissions:
       default: op
 commands:
    easyjetpack:
-      description: Reload the EasyJetpack configuration
-      usage: /easyjetpack reload
-      permission: easyjetpack.reload
+      description: Various EasyJetpack admin commmands
+      usage: /easyjetpack
+      permission: easyjetpack.admin
    ej:
       description: Shortcut for /easyjetpack
       usage: /easyjetpack
