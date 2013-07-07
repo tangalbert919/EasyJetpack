@@ -165,7 +165,7 @@ public class Jetpack {
 	}
 
 	// Fall damage event
-	public static boolean fallDamageEvent(Player player, int amount) {
+	public static boolean fallDamageEvent(Player player, double amount) {
 		ConfigHandler.checkConfig();
 		boolean cancel = false;
 		if (player.hasPermission("easyjetpack.softlanding")
