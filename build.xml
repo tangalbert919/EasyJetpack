@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="build" name="EasyJetpack">
+	<target name="clean">
+		<delete dir="bin"/>
+		<mkdir dir="bin"/>
+	</target>
+	<target name="getbukkit">
+		<delete>
+			<fileset file="bukkit.jar"/>
+		</delete>
+		<get src="http://dl.bukkit.org/downloads/bukkit/get/latest/bukkit-dev.jar" dest="bukkit.jar"/>
+	</target>
+	<target depends="getbukkit" name="compile">
+		<javac srcdir="src" destdir="bin" classpath="bukkit.jar" />
+	</target>
+	<target name="jar">
+		<tstamp>
+			<format property="current.time"
+				            pattern="yyyyMMdd_HHmmss" />
+		</tstamp>
+		<jar destfile="easyjetpack-${current.time}-SNAPSHOT.jar">
+			<fileset file="plugin.yml" />
+			<fileset dir="./bin"/>
+		</jar>
+	</target>
+	<target depends="clean,compile,jar" name="build" />
+</project>
