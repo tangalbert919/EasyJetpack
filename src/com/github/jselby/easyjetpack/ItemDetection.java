@@ -98,12 +98,7 @@ public class ItemDetection {
 
 	// Checks if the player is wearing the right jetpack for temp "flying"
 	public static boolean checkPlayerWearingTempJetpack(Player player) {
-		if (getTempJetpackDurability() < 1) {
-			return Utils.playerIsWearing(player, 2, getTempJetpackId());
-		} else {
-			return Utils.playerIsWearing(player, 2, getTempJetpackId(),
-					getTempJetpackDurability());
-		}
+		return Utils.playerIsWearing(player, 2, getTempJetpackId());
 	}
 
 	// Get the fuel id
@@ -163,14 +158,16 @@ public class ItemDetection {
 	}
 
 	// Searches a player for a jetpack
-	public static void jetpackSearch(Player player) {
+	public static boolean jetpackSearch(Player player, boolean shouldModify) {
+		boolean isEquiped = false;
 		if (ItemDetection.checkPlayerWearingJetpack(player)) {
-			Jetpack.spaceFlyingHandler(player, true);
+			isEquiped = Jetpack.spaceFlyingHandler(player, true, shouldModify);
 		} else if (ItemDetection.checkPlayerWearingTempJetpack(player)) {
-			Jetpack.spaceFlyingHandler(player, true);
+			isEquiped = Jetpack.spaceFlyingHandler(player, true, shouldModify);
 		} else {
-			Jetpack.spaceFlyingHandler(player, false);
+			isEquiped = Jetpack.spaceFlyingHandler(player, false, shouldModify);
 		}
+		return isEquiped;
 	}
 
 	// Returns if the configuration allows custom items

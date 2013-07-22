@@ -29,12 +29,15 @@ import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event.Result;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
@@ -43,7 +46,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class EasyJetpack extends JavaPlugin implements Listener {
-	public final static double pluginVersion = 0.6;
+	public final static String pluginVersion = "0.6c";
 
 	private static EasyJetpack me = null;
 
@@ -63,7 +66,7 @@ public class EasyJetpack extends JavaPlugin implements Listener {
 
 		// Check currently logged in players for a jetpack
 		for (Player p : Bukkit.getOnlinePlayers()) {
-			ItemDetection.jetpackSearch(p);
+			ItemDetection.jetpackSearch(p, true);
 		}
 
 		// And print out a friendly message
@@ -81,7 +84,7 @@ public class EasyJetpack extends JavaPlugin implements Listener {
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
-		ItemDetection.jetpackSearch(event.getPlayer());
+		ItemDetection.jetpackSearch(event.getPlayer(), true);
 	}
 
 	// ALlows everyone else to access me
@@ -116,9 +119,11 @@ public class EasyJetpack extends JavaPlugin implements Listener {
 		// http://forums.bukkit.org/threads/double-jump.127013/
 		Player player = event.getPlayer();
 
-		ItemDetection.jetpackSearch(event.getPlayer());
+		boolean isWearing = ItemDetection.jetpackSearch(event.getPlayer(),
+				false);
 
-		if (event.getPlayer().getAllowFlight() == false) {
+		if (!isWearing) {
+			Jetpack.revertPlayerState(event.getPlayer());
 			return;
 		}
 
@@ -129,6 +134,55 @@ public class EasyJetpack extends JavaPlugin implements Listener {
 		}
 	}
 
+	@EventHandler
+	public void onCommandPreprocess(PlayerCommandPreprocessEvent event) {
+		String command = event.getMessage().trim().split(" ")[0].toLowerCase()
+				.substring(1);
+		if (command.equalsIgnoreCase("fly")) {
+			boolean check = ItemDetection.jetpackSearch(event.getPlayer(),
+					false);
+
+			if (check) {
+				event.getPlayer()
+						.sendMessage(
+								ChatColor.RED
+										+ "You cannot use /fly when you are wearing a jetpack! Take it off first.");
+				event.setCancelled(true);
+			} else {
+				Jetpack.revertPlayerState(event.getPlayer());
+			}
+		}
+	}
+
+	@EventHandler
+	public void onPlayerRightClicked(PlayerInteractEvent event) {
+		if (event.hasItem()
+				&& event.getItem().getTypeId() == CustomArmor.getJetpack()
+						.getTypeId() && event.getItem().getDurability() == 1337) {
+			event.setUseItemInHand(Result.DENY);
+
+			final Player player = event.getPlayer();
+
+			Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+
+				@SuppressWarnings("deprecation")
+				@Override
+				public void run() {
+					if (player != null) {
+						player.sendMessage("Converted into a jetpack.");
+						player.getInventory().setItemInHand(
+								CustomArmor.getJetpack());
+
+						// Work around a bug in Minecraft or Bukkit, whereas a
+						// fake chestplate is shown on the player
+						player.updateInventory();
+					}
+				}
+
+			});
+		}
+	}
+
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void onPlayerMove(PlayerMoveEvent event) {
 		// Damage for SPACE jetpackers
@@ -136,12 +190,12 @@ public class EasyJetpack extends JavaPlugin implements Listener {
 			return;
 		}
 
-		ItemDetection.jetpackSearch(event.getPlayer());
+		boolean canFly = ItemDetection.jetpackSearch(event.getPlayer(), false);
 
-		if (event.getPlayer().getAllowFlight() == false) {
+		if (!canFly) {
 			return;
 		}
-		
+
 		if (!ConfigHandler.getControlKey().equalsIgnoreCase("SPACE")) {
 			event.getPlayer().setAllowFlight(false);
 			return;
@@ -197,7 +251,8 @@ public class EasyJetpack extends JavaPlugin implements Listener {
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) {
 		if (!sender.hasPermission("easyjetpack.admin")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to these commands.");
+			sender.sendMessage(ChatColor.RED
+					+ "You do not have access to these commands.");
 			return true;
 		}
 		if (args.length > 0 && args[0].equalsIgnoreCase("reload")) {

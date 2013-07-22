@@ -15,6 +15,12 @@ public class CustomArmor {
 		if (!ItemDetection.isUsingCustomItems()) {
 			return true;
 		}
+		if (item.getItemMeta() == null) {
+			return false;
+		}
+		if (item.getItemMeta().getLore() == null) {
+			return false;
+		}
 		// If we are, compare the itemstack to them
 		List<String> displayName1 = item.getItemMeta().getLore();
 		List<String> displayName2 = getJetpack().getItemMeta().getLore();

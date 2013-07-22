@@ -1,5 +1,7 @@
 package com.github.jselby.easyjetpack;
 
+import java.util.HashMap;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;
@@ -10,6 +12,8 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 public class Jetpack {
+	private static HashMap<String, Boolean> states = new HashMap<String, Boolean>();
+	
 	// Plays a jetpack effect
 	public static void jetpackEffect(Player player) {
 		playEffect(Effect.SMOKE, player.getLocation(), 256);
@@ -154,20 +158,42 @@ public class Jetpack {
 	}
 
 	// Allow players to fly if the key is space
-	public static void spaceFlyingHandler(Player player, boolean isEquiped) {
+	public static boolean spaceFlyingHandler(Player player, boolean isEquiped,
+			boolean shouldModify) {
+		//System.out.println("Should allow to fly: " + isEquiped + ", " + shouldModify);
 		if (player.getGameMode() != GameMode.CREATIVE
 				&& ConfigHandler.getControlKey().equalsIgnoreCase("SPACE")) {
-			player.setAllowFlight(isEquiped);
+			if (isEquiped) {
+				Jetpack.setModified(player, player.getAllowFlight());
+			}
+			
+			if (isEquiped) {
+				player.setAllowFlight(true);
+			} else if (!isEquiped && shouldModify) {
+				player.setAllowFlight(false);
+			}
+			return isEquiped;
 		} else if (!ConfigHandler.getControlKey().equalsIgnoreCase("SPACE")
 				&& !isEquiped) {
-			player.setAllowFlight(false);
+			if (shouldModify) {
+				player.setAllowFlight(false);
+			}
+			return false;
 		}
+		return false;
 	}
 
 	// Fall damage event
 	public static boolean fallDamageEvent(Player player, double amount) {
 		ConfigHandler.checkConfig();
 		boolean cancel = false;
+		if (ItemDetection.checkPlayerWearingJetpack(player) && EasyJetpack.getInstance()
+						.getConfig().getBoolean("jetpack.noFallDamage")) {
+			return true;
+		} else if (ItemDetection.checkPlayerWearingTempJetpack(player) && EasyJetpack.getInstance()
+				.getConfig().getBoolean("tempjetpack.noFallDamage")) {
+			return true;
+		}
 		if (player.hasPermission("easyjetpack.softlanding")
 				&& ItemDetection.checkPlayerWearingBoots(player)
 				&& Boolean.parseBoolean((String) EasyJetpack.getInstance()
@@ -203,5 +229,20 @@ public class Jetpack {
 
 		}
 		return cancel;
+	}
+
+	public static void revertPlayerState(Player player) {
+		Boolean state = states.get(player.getName());
+		if (state != null && ConfigHandler.getControlKey().equalsIgnoreCase("SPACE")) {
+			player.setAllowFlight(state);
+			states.remove(player.getName());
+		}
+	}
+
+	public static void setModified(Player player, boolean isModified) {
+		Boolean state = states.get(player.getName());
+		if (state == null) {
+			states.put(player.getName(), isModified);
+		}
 	}
 }
