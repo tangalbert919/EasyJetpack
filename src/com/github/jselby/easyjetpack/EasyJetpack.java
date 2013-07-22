@@ -49,6 +49,7 @@ public class EasyJetpack extends JavaPlugin implements Listener {
 	public final static String pluginVersion = "0.6c";
 
 	private static EasyJetpack me = null;
+	public FloatingJetpack floatingjetpack = null;
 
 	// Load plugin
 	@Override
@@ -69,6 +70,12 @@ public class EasyJetpack extends JavaPlugin implements Listener {
 			ItemDetection.jetpackSearch(p, true);
 		}
 
+		// Add the floating jetpack timer
+		floatingjetpack = new FloatingJetpack();
+		Bukkit.getScheduler().runTaskTimer(this, floatingjetpack,
+				getConfig().getInt("floating.usagetimer"),
+				getConfig().getInt("floating.usagetimer"));
+
 		// And print out a friendly message
 		getLogger()
 				.info("EasyJetpack v" + pluginVersion + " has been enabled.");
@@ -77,7 +84,9 @@ public class EasyJetpack extends JavaPlugin implements Listener {
 	// Unload plugin
 	@Override
 	public void onDisable() {
-		// Nothing needs to be done - just show message
+		// Remove the timer
+		Bukkit.getScheduler().cancelTasks(this);
+
 		getLogger().info(
 				"EasyJetpack v" + pluginVersion + " has been disabled.");
 	}
@@ -129,8 +138,10 @@ public class EasyJetpack extends JavaPlugin implements Listener {
 
 		if (event.isFlying()
 				&& event.getPlayer().getGameMode() != GameMode.CREATIVE) {
-			event.setCancelled(true);
-			Jetpack.jetpackEvent(player);
+			if (floatingjetpack.shouldBeHoldingFuel(player)) {
+				event.setCancelled(true);
+				Jetpack.jetpackEvent(player);
+			}
 		}
 	}
 
@@ -169,7 +180,8 @@ public class EasyJetpack extends JavaPlugin implements Listener {
 				@Override
 				public void run() {
 					if (player != null) {
-						player.sendMessage("Converted into a jetpack.");
+						player.sendMessage(ChatColor.GREEN
+								+ "Converted into a jetpack.");
 						player.getInventory().setItemInHand(
 								CustomArmor.getJetpack());
 
@@ -250,6 +262,30 @@ public class EasyJetpack extends JavaPlugin implements Listener {
 	// Reload command
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) {
+		if (sender.hasPermission("easyjetpack.fly") && args.length > 0
+				&& args[0].equalsIgnoreCase("switch")) {
+			if (!(sender instanceof Player)) {
+				sender.sendMessage(ChatColor.RED + "Run this as a player!");
+				return true;
+			}
+			Player player = (Player) sender;
+			if (!ItemDetection.checkPlayerWearingJetpack(player)
+					&& !ItemDetection.checkPlayerWearingTempJetpack(player)) {
+				sender.sendMessage(ChatColor.RED + "You need to be wearing a jetpack!");
+			}
+			boolean state = floatingjetpack.invertPlayer(player);
+			String mode = "burst. Fly by tapping "
+					+ ConfigHandler.getControlKey();
+			if (state) {
+				mode = "creative. You can fly using creative mode controls";
+			} else {
+				player.setFlying(false);
+				player.setAllowFlight(false);
+			}
+			sender.sendMessage(ChatColor.GREEN + "Switched jetpack mode to "
+					+ mode + ".");
+			return true;
+		}
 		if (!sender.hasPermission("easyjetpack.admin")) {
 			sender.sendMessage(ChatColor.RED
 					+ "You do not have access to these commands.");

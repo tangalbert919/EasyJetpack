@@ -25,9 +25,7 @@ commands:
    easyjetpack:
       description: Various EasyJetpack admin commmands
       usage: /easyjetpack
-      permission: easyjetpack.admin
    ej:
       description: Shortcut for /easyjetpack
       usage: /easyjetpack
-      permission: easyjetpack.admin
       

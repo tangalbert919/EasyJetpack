@@ -123,7 +123,7 @@ public class Jetpack {
 					// Do the jetpack effects
 					Jetpack.jetpackEffect(player);
 					// Use fuel
-					ItemDetection.useFuel(player);
+					ItemDetection.useFuel(player, EasyJetpack.getInstance().floatingjetpack.shouldBeHoldingFuel(player), 1);
 
 					// Damage the jetpack
 					if (Boolean.parseBoolean((String) EasyJetpack.getInstance()

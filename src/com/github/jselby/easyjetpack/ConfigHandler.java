@@ -43,7 +43,8 @@ public class ConfigHandler {
 		config.set("chat.jetpackbroke", "Your JETPACKNAME jetpack broke!");
 		config.set("controls.key", "SPACE");
 		config.set("item.usecustomitems", true);
-
+		config.set("floating.usagetimer", 10);
+	
 		// Tell the server owner that the configuration was changed
 		EasyJetpack.getInstance().getLogger()
 				.info("Your configuration file was " + why);
@@ -81,7 +82,7 @@ public class ConfigHandler {
 				e.printStackTrace();
 			}
 		} else if (EasyJetpack.getInstance().getConfig()
-				.get("item.usecustomitems") == null) {
+				.get("floating.usagetimer") == null) {
 			try {
 				// Update the config for new versions
 				forceDefaults("reset due to a update");

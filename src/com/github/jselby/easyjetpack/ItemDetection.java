@@ -176,57 +176,108 @@ public class ItemDetection {
 				.getBoolean("item.usecustomitems");
 	}
 
-	public static void useFuel(Player player) {		
+	@SuppressWarnings("unused")
+	public static void useFuel(Player player, boolean mustBeHolding, double factor) {
 		if (player.hasPermission("easyjetpack.fuelless")) {
 			return;
 		}
-		
+
+		if (player == null) {
+			return;
+		}
+
 		int coalToGiveBack = 0;
-		coalToGiveBack = player.getInventory().getItemInHand().getAmount() - 1;
+		ItemStack myitem;
+		if (mustBeHolding) {
+			myitem = player.getInventory().getItemInHand();
+		} else {
+			myitem = player.getInventory().getItem(
+					player.getInventory().first(
+							EasyJetpack.getInstance().getConfig()
+									.getInt("fuel.id")));
+		}
+		coalToGiveBack = myitem.getAmount() - 1;
 		if (coalToGiveBack > 0) {
-			player.getInventory().setItemInHand(new ItemStack(Material.COAL, 1));
+			player.getInventory().remove(myitem);
+			if (!mustBeHolding) {
+				player.getInventory().addItem(
+						new ItemStack(EasyJetpack.getInstance().getConfig()
+								.getInt("fuel.id"), 1));
+			} else {
+				player.setItemInHand(new ItemStack(EasyJetpack.getInstance()
+						.getConfig().getInt("fuel.id"), 1));
+			}
 		}
 		
+		ItemStack item;
+		if (mustBeHolding) {
+			item = player.getItemInHand();
+		} else {
+			item = player.getInventory().getItem(
+					player.getInventory().first(
+							EasyJetpack.getInstance().getConfig()
+									.getInt("fuel.id")));
+		}
+
 		short fuelUsage = 1;
-		if (player.getInventory().getItemInHand().getItemMeta().getLore() == null
-				|| player.getInventory().getItemInHand().getItemMeta()
-						.getLore().isEmpty()) {
+		if (!(item != null
+						&& item.hasItemMeta() && item.getItemMeta().hasLore())) {
 			// Unused fuel
 			fuelUsage = 100;
 		} else {
-			String fuel = player
-					.getInventory()
-					.getItemInHand()
+			if (mustBeHolding) {
+				item = player.getItemInHand();
+			} else {
+				item = player.getInventory().getItem(Utils.findCoal(player, false));
+			}
+			String fuel = item
 					.getItemMeta()
 					.getLore()
 					.get(0)
-					.substring(
-							2,
-							player.getInventory().getItemInHand().getItemMeta()
-									.getLore().get(0).indexOf("%"));
+					.substring(2,
+							item.getItemMeta().getLore().get(0).indexOf("%"));
 			fuelUsage = Short.parseShort(fuel);
 		}
-		fuelUsage -= 100 / EasyJetpack.getInstance().getConfig()
-				.getInt("fuel.uses");
+		
+		fuelUsage -= (((double)100) / ((double)EasyJetpack.getInstance().getConfig()
+				.getInt("fuel.uses")) / factor);
 
 		List<String> newLore = new ArrayList<String>();
 		newLore.add("§R" + fuelUsage + "% left");
 
-		ItemStack item = player.getInventory().getItemInHand();
+
+		int coal = Utils.findCoal(player, true);	
+		
+		if (mustBeHolding) {
+			item = player.getInventory().getItemInHand();
+		} else {
+			item = player.getInventory().getItem(Utils.findCoal(player, true));
+		}
 		ItemMeta itemMeta = item.getItemMeta();
 		itemMeta.setDisplayName("§R§4Burning Coal - " + fuelUsage + "% left");
 		itemMeta.setLore(newLore);
 		item.setItemMeta(itemMeta);
 		
 		if (fuelUsage < 1) {
-			player.getInventory().setItemInHand(new ItemStack(Material.AIR, 1));
-			Utils.shuffleCoal(player);
+			if (mustBeHolding) {
+				player.getInventory().setItemInHand(
+						new ItemStack(Material.AIR, 1));
+			} else {
+				player.getInventory().clear(coal);
+			}
+			Utils.shuffleCoal(player, mustBeHolding);
 		} else {
-			player.getInventory().setItemInHand(item);
+			if (!mustBeHolding) {
+				player.getInventory().setItem(coal, item);
+			} else {
+				player.getInventory().setItemInHand(item);
+			}
 		}
-		
+
 		if (coalToGiveBack > 0) {
-			player.getInventory().addItem(new ItemStack(Material.COAL, coalToGiveBack));
+			player.getInventory().addItem(
+					new ItemStack(EasyJetpack.getInstance().getConfig()
+							.getInt("fuel.id"), coalToGiveBack));
 		}
 	}
 }
