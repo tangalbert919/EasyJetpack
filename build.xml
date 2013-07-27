@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project basedir="." default="build" name="EasyJetpack">
 	<target name="clean">
+		<delete file="*SNAPSHOT.jar"/>
 		<delete dir="bin"/>
 		<mkdir dir="bin"/>
 	</target>
@@ -9,7 +10,7 @@
 		<delete>
 			<fileset file="bukkit.jar"/>
 		</delete>
-		<exec executable="..\\wget">
+		<exec executable="/usr/bin/wget">
 			<arg value="--output-document=bukkit.jar" />
 			<arg value="-nv" />
 			<arg value="http://dl.bukkit.org/downloads/bukkit/get/latest/bukkit-dev.jar" />
