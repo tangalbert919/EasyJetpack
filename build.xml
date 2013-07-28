@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project basedir="." default="build" name="EasyJetpack">
 	<target name="clean">
-		<delete file="*SNAPSHOT.jar"/>
+		<delete>
+			<fileset dir="." includes="**/*SNAPSHOT.jar" />
+		</delete>
 		<delete dir="bin"/>
 		<mkdir dir="bin"/>
 	</target>
