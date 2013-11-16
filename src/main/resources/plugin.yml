@@ -2,30 +2,11 @@ name: EasyJetpack
 main: com.github.jselby.ej.EasyJetpack
 version: 0.7
 permissions:
-   easyjetpack.*:
-      description: All permissions in EasyJetpack
-      children:
-        easyjetpack.softlanding: true
-        easyjetpack.fly: true
-        easyjetpack.fuelless: true
-        easyjetpack.admin: true
-   easyjetpack.softlanding:
-      description: Enables the use of anti-fall damage boots
-      default: op
-   easyjetpack.fly:
-      description: Enables the use of the jetpack
-      default: op
-   easyjetpack.fuelless:
-      description: Fly without fuel
-      default: op
-   easyjetpack.admin:
-      description: Admin commands
+   easyjetpack.jetpackname:
+      description: Allows a player to use a jetpack
       default: op
 commands:
-   easyjetpack:
-      description: Various EasyJetpack admin commmands
-      usage: /easyjetpack
    ej:
-      description: Shortcut for /easyjetpack
-      usage: /easyjetpack
+      description: Various EasyJetpack admin commmands
+      usage: /ej
       

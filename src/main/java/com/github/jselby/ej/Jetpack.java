@@ -22,7 +22,8 @@ public abstract class Jetpack {
 
 	/**
 	 * Defines what the name of the Jetpack should be when trying to spawn it
-	 * using the /ej give command.
+	 * using the /ej give command. This is also used by the default
+	 * getPermission().
 	 * 
 	 * @return a name, without spaces
 	 */
@@ -137,5 +138,14 @@ public abstract class Jetpack {
 	 */
 	public ItemStack getItem() {
 		return getItem(1);
+	}
+
+	/**
+	 * Defines the permission required to use this Jetpack
+	 * 
+	 * @return A permission path
+	 */
+	public String getPermission() {
+		return "easyjetpack." + getGiveName();
 	}
 }

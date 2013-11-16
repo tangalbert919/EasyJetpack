@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 
 /**
  * This class manages Jetpacks, and calls the Jetpack events when they are
@@ -83,6 +84,13 @@ public class JetpackManager {
 					.getType() == FlightTypes.CROUCH))
 					&& Utils.isItemStackEqual(next.getItem(), event.getPlayer()
 							.getInventory().getChestplate())) {
+				if (!event.getPlayer().hasPermission(next.getPermission())) {
+					event.getPlayer()
+							.sendMessage(
+									ChatColor.RED
+											+ "You do not have permission to use this jetpack.");
+					return false;
+				}
 				if (next.getMovementType() == FlightTypes.CROUCH_CONSTANT
 						&& event.getType() == FlightTypes.CROUCH) {
 					Runnable runnable = new Runnable() {
