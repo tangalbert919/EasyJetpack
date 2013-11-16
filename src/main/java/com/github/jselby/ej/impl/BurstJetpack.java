@@ -74,13 +74,17 @@ public class BurstJetpack extends Jetpack {
 	@Override
 	public CraftingRecipe getCraftingRecipe() {
 		CraftingRecipe recipe = new CraftingRecipe(getItem());
-		recipe.setSlot(0, Material.STONE);
-		recipe.setSlot(1, Material.FURNACE);
-		recipe.setSlot(2, Material.STONE);
-		recipe.setSlot(4, Material.WOOD);
-		recipe.setSlot(6, Material.APPLE);
-		recipe.setSlot(7, Material.REDSTONE);
-		recipe.setSlot(8, Material.APPLE);
+		recipe.setSlot(0, Material.REDSTONE);
+		recipe.setSlot(3, Material.REDSTONE);
+		recipe.setSlot(6, Material.REDSTONE);
+		
+		recipe.setSlot(1, Material.DIAMOND);
+		recipe.setSlot(4, Material.GOLD_CHESTPLATE);
+		recipe.setSlot(7, Material.FURNACE);
+		
+		recipe.setSlot(2, Material.REDSTONE);
+		recipe.setSlot(5, Material.REDSTONE);
+		recipe.setSlot(8, Material.REDSTONE);
 		return recipe;
 	}
 }
