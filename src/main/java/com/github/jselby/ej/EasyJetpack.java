@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.github.jselby.ej.impl.BurstJetpack;
+import com.github.jselby.ej.impl.TeleportJetpack;
 import com.github.jselby.ej.impl.TraditionalJetpack;
 
 /**
@@ -37,6 +38,7 @@ public class EasyJetpack extends JavaPlugin {
 		// Register our default Jetpacks
 		manager.addJetpack(new TraditionalJetpack());
 		manager.addJetpack(new BurstJetpack());
+		manager.addJetpack(new TeleportJetpack());
 		
 		getLogger().info(
 				"EasyJetpack (v" + getDescription().getVersion()

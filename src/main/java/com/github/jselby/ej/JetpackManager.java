@@ -45,7 +45,10 @@ public class JetpackManager {
 	 */
 	public void addJetpack(Jetpack jetpack) {
 		jetpacks.add(jetpack);
-		jetpack.getCraftingRecipe().register();
+		CraftingRecipe recipe = jetpack.getCraftingRecipe();
+		if (recipe != null) {
+			recipe.register();
+		}
 	}
 
 	/**

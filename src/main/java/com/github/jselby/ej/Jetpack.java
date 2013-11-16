@@ -21,6 +21,14 @@ public abstract class Jetpack {
 	public abstract String getName();
 
 	/**
+	 * Defines what the name of the Jetpack should be when trying to spawn it
+	 * using the /ej give command.
+	 * 
+	 * @return a name, without spaces
+	 */
+	public abstract String getGiveName();
+
+	/**
 	 * Defines what the description of the Jetpack should be. This will be
 	 * converted into a List, and used as a argument to
 	 * ItemStack.getItemMeta().setLore() method.
@@ -93,7 +101,13 @@ public abstract class Jetpack {
 	 * @return A type from the FlightTypes enum
 	 */
 	public abstract FlightTypes getMovementType();
-	
+
+	/**
+	 * Generates a crafting recipe that this Jetpack is crafted using. This is
+	 * used by the JetpackManager to integrate the Jetpack with Bukkit.
+	 * 
+	 * @return A crafting recipe
+	 */
 	public abstract CraftingRecipe getCraftingRecipe();
 
 	/**

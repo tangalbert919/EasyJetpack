@@ -2,58 +2,52 @@ package com.github.jselby.ej.impl;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.util.Vector;
+import org.bukkit.block.Block;
+import org.bukkit.inventory.ItemStack;
 
 import com.github.jselby.ej.CraftingRecipe;
 import com.github.jselby.ej.FlightTypes;
 import com.github.jselby.ej.Jetpack;
 import com.github.jselby.ej.JetpackEvent;
-import com.github.jselby.ej.Utils;
 
 /**
- * A Jetpack built for speed
+ * A jetpack for teleporting around
  * 
  * @author James
  * 
  */
-public class BurstJetpack extends Jetpack {
+public class TeleportJetpack extends Jetpack {
 
 	@Override
 	public String getName() {
-		return ChatColor.RESET + "" + ChatColor.BLUE + "Burst Jetpack";
+		return ChatColor.RESET + "" + ChatColor.GOLD + "Teleportation Jetpack";
 	}
 
 	@Override
 	public String[] getDescription() {
-		return new String[] {
-				ChatColor.RESET + "Need to climb into the atmosphere",
-				ChatColor.RESET + "at great speeds? The burst jetpack",
-				ChatColor.RESET + "is for you!" };
+		return new String[] { ChatColor.RESET + "Like a ender pearl, but",
+				ChatColor.RESET + "more expensive and time ",
+				ChatColor.RESET + "consuming to obtain." };
 	}
 
 	@Override
 	public Material getMaterial() {
-		return Material.GOLD_CHESTPLATE;
+		return Material.CHAINMAIL_CHESTPLATE;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onFlyEvent(JetpackEvent event) {
-		Vector dir = event.getPlayer().getLocation().getDirection();
-		double y = event.getPlayer().getVelocity().getY();
-		if (y < 0.3D) {
-			y = 0.3D;
+		Block block = event.getPlayer().getTargetBlock(null, 30);
+		if (block != null) {
+			event.getPlayer().teleport(block.getLocation().add(0, 2, 0));
 		}
-		y *= 1.3D;
-		if (y > 10) {
-			y = 10;
-		}
-		Vector vec = new Vector(dir.getX() * 0.5D, y, dir.getZ() * 0.5D);
-		event.getPlayer().setVelocity(vec);
 	}
 
 	@Override
 	public void onFuelUsageEvent(JetpackEvent event) {
-		Utils.useFuel(event.getPlayer(), false, 4);
+		event.getPlayer().getInventory()
+				.removeItem(new ItemStack(Material.COAL, 1));
 	}
 
 	@Override
@@ -68,28 +62,28 @@ public class BurstJetpack extends Jetpack {
 
 	@Override
 	public FlightTypes getMovementType() {
-		return FlightTypes.CROUCH_CONSTANT;
+		return FlightTypes.CROUCH;
 	}
 
 	@Override
 	public CraftingRecipe getCraftingRecipe() {
 		CraftingRecipe recipe = new CraftingRecipe(getItem());
-		recipe.setSlot(0, Material.REDSTONE);
-		recipe.setSlot(3, Material.REDSTONE);
-		recipe.setSlot(6, Material.REDSTONE);
+		recipe.setSlot(0, Material.ENDER_PEARL);
+		recipe.setSlot(3, Material.ENDER_PEARL);
+		recipe.setSlot(6, Material.ENDER_PEARL);
 		
 		recipe.setSlot(1, Material.DIAMOND);
 		recipe.setSlot(4, Material.GOLD_CHESTPLATE);
 		recipe.setSlot(7, Material.FURNACE);
 		
-		recipe.setSlot(2, Material.REDSTONE);
-		recipe.setSlot(5, Material.REDSTONE);
-		recipe.setSlot(8, Material.REDSTONE);
+		recipe.setSlot(2, Material.ENDER_PEARL);
+		recipe.setSlot(5, Material.ENDER_PEARL);
+		recipe.setSlot(8, Material.ENDER_PEARL);
 		return recipe;
 	}
 
 	@Override
 	public String getGiveName() {
-		return "burst";
+		return "teleportation";
 	}
 }

@@ -72,4 +72,9 @@ public class TraditionalJetpack extends Jetpack {
 		recipe.setSlot(7, Material.FURNACE);
 		return recipe;
 	}
+
+	@Override
+	public String getGiveName() {
+		return "standard";
+	}
 }
