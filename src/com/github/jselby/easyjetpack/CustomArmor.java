@@ -31,6 +31,7 @@ public class CustomArmor {
 		return false;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static ItemStack getJetpack() {
 		if (!ItemDetection.isUsingCustomItems()) {
 			return new ItemStack(EasyJetpack.getInstance().getConfig().getInt("jetpack.id"), 1);
@@ -58,6 +59,7 @@ public class CustomArmor {
 		return recipe;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static ItemStack getBoots() {
 		if (!ItemDetection.isUsingCustomItems()) {
 			return new ItemStack(EasyJetpack.getInstance().getConfig().getInt("boots.id"), 1);

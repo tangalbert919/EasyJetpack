@@ -140,6 +140,7 @@ public class ItemDetection {
 	}
 
 	// Tells the player that they have no fuel
+	@SuppressWarnings("deprecation")
 	public static void noFuel(Player player) {
 		ItemStack fuel = new ItemStack(Integer.parseInt((String) EasyJetpack
 				.getInstance().getConfig().getString("fuel.id")));
@@ -176,7 +177,7 @@ public class ItemDetection {
 				.getBoolean("item.usecustomitems");
 	}
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings({ "unused", "deprecation" })
 	public static void useFuel(Player player, boolean mustBeHolding, double factor) {
 		if (player.hasPermission("easyjetpack.fuelless")) {
 			return;

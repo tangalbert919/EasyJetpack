@@ -165,6 +165,7 @@ public class EasyJetpack extends JavaPlugin implements Listener {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerRightClicked(PlayerInteractEvent event) {
 		if (event.hasItem()
@@ -176,8 +177,6 @@ public class EasyJetpack extends JavaPlugin implements Listener {
 
 			Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
 
-				@SuppressWarnings("deprecation")
-				@Override
 				public void run() {
 					if (player != null) {
 						player.sendMessage(ChatColor.GREEN

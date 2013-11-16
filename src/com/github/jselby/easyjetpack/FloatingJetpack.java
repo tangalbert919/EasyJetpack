@@ -15,7 +15,7 @@ public class FloatingJetpack implements Runnable {
 		map = new HashMap<String, Boolean>();
 	}
 
-	@Override
+	@SuppressWarnings("deprecation")
 	public void run() {
 		Iterator<Entry<String, Boolean>> it = map.entrySet().iterator();
 		while (it.hasNext()) {

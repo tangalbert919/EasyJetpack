@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class Utils {
 	// Checks if the player is wearing something
+	@SuppressWarnings("deprecation")
 	public static boolean playerIsWearing(Player player, int armorSlot, int id) {
 		if (player.getInventory().getArmorContents()[armorSlot].getTypeId() == id) {
 			return true;
@@ -17,6 +18,7 @@ public class Utils {
 	}
 
 	// Checks if the player is wearing something with durability
+	@SuppressWarnings("deprecation")
 	public static boolean playerIsWearing(Player player, int armorSlot, int id,
 			short durability) {
 		if (player.getInventory().getArmorContents()[armorSlot].getTypeId() == id
@@ -28,6 +30,7 @@ public class Utils {
 	}
 
 	// Checks if the player is holding something
+	@SuppressWarnings("deprecation")
 	public static boolean playerIsHolding(Player player, int jetpackId) {
 		if (player.getInventory().getItemInHand().getTypeId() == jetpackId) {
 			return true;
@@ -36,6 +39,7 @@ public class Utils {
 	}
 
 	// Checks if the player is holding something with durability
+	@SuppressWarnings("deprecation")
 	public static boolean playerIsHolding(Player player, int jetpackId,
 			short durability) {
 		if (player.getInventory().getItemInHand().getTypeId() == jetpackId
@@ -45,6 +49,7 @@ public class Utils {
 		return false;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void shuffleCoal(Player player, boolean mustBeHolding) {
 		if (player.getInventory().contains(
 				EasyJetpack.getInstance().getConfig().getInt("fuel.id"))) {
@@ -62,6 +67,7 @@ public class Utils {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public static int findCoal(Player player, boolean includeNormalCoal) {
 		ListIterator<ItemStack> it = player.getInventory().iterator();
 		Material fuelMaterial = Material.getMaterial(EasyJetpack.getInstance()

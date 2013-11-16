@@ -29,6 +29,7 @@ public class Jetpack {
 	}
 
 	// Plays the respective effect at a specified location
+	@SuppressWarnings("deprecation")
 	public static void playEffect(Effect e, Location l, int num) {
 		for (int i = 0; i < EasyJetpack.getInstance().getServer()
 				.getOnlinePlayers().length; i++)
