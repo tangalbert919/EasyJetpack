@@ -129,6 +129,30 @@ public class JetpackManager {
 	}
 
 	/**
+	 * Finds a Jetpack by it's give name
+	 * @param name The name of the Jetpack
+	 * @return A Jetpack, or null if one cannot be found
+	 */
+	public Jetpack getJetpackByName(String name) {
+		Iterator<Jetpack> it = jetpacks.iterator();
+		while(it.hasNext()) {
+			Jetpack next = it.next();
+			if (next.getGiveName().equalsIgnoreCase(name)) {
+				return next;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Obtains a array of all registered jetpacks
+	 * @return A Jetpack array
+	 */
+	public Jetpack[] getJetpacks() {
+		return jetpacks.toArray(new Jetpack[jetpacks.size()]);
+	}
+
+	/**
 	 * Obtains a instance of the JetpackManager, for plugins to register and
 	 * modify Jetpacks
 	 * 

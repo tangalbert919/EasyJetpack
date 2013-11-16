@@ -22,6 +22,7 @@ public class EasyJetpack extends JavaPlugin {
 	public void onEnable() {
 		EasyJetpack.instance = this;
 		
+		// Alert the server owner to allow-flight being false
 		if (!Bukkit.getAllowFlight()) {
 			getLogger().warning("==========");
 			getLogger().warning("allow-flight is set to false in the");
@@ -31,6 +32,9 @@ public class EasyJetpack extends JavaPlugin {
 			getLogger().warning("Consider enabling allow-flight to prevent this");
 			getLogger().warning("==========");
 		}
+		
+		// Register the command listener
+		getServer().getPluginCommand("ej").setExecutor(new CommandListener());;
 		
 		// Creates a manager, which internal/external code will use
 		JetpackManager manager = new JetpackManager(this);
