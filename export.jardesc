@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
 <jardesc>
-    <jar path="EasyJetpack/dist/plugins/EasyJetpack.jar"/>
+    <jar path="C:/Users/James/Desktop/IslandCraft/plugins/EasyJetpack.jar"/>
     <options buildIfNeeded="true" compress="true" descriptionLocation="/EasyJetpack/export.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
     <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
     <selectedProjects/>
@@ -11,7 +11,17 @@
         </sealing>
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
-        <file path="/EasyJetpack/plugin.yml"/>
-        <javaElement handleIdentifier="=EasyJetpack/src"/>
+        <file path="/EasyJetpack/.project"/>
+        <file path="/EasyJetpack/.gitignore"/>
+        <javaElement handleIdentifier="=EasyJetpack/src\/main\/java"/>
+        <file path="/EasyJetpack/.gitattributes"/>
+        <file path="/EasyJetpack/.classpath"/>
+        <file path="/EasyJetpack/pom.xml"/>
+        <file path="/EasyJetpack/README.md"/>
+        <file path="/EasyJetpack/export.jardesc"/>
+        <folder path="/EasyJetpack/bin"/>
+        <folder path="/EasyJetpack/target"/>
+        <folder path="/EasyJetpack/src"/>
+        <javaElement handleIdentifier="=EasyJetpack/src\/main\/resources"/>
     </selectedElements>
 </jardesc>

@@ -1,6 +1,6 @@
 name: EasyJetpack
-main: com.github.jselby.easyjetpack.EasyJetpack
-version: 0.6
+main: com.github.jselby.ej.EasyJetpack
+version: 0.7
 permissions:
    easyjetpack.*:
       description: All permissions in EasyJetpack
