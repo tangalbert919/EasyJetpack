@@ -22,13 +22,15 @@ public class Fallboots extends Jetpack {
 
 	@Override
 	public String[] getDescription() {
-		return new String[] {ChatColor.RESET + "Direct from Aperture Science!",
-				ChatColor.RESET + "Outlawed in 170 countries!"};
+		return new String[] {
+				ChatColor.RESET + "Direct from Aperture Science!",
+				ChatColor.RESET + "Outlawed in 170 countries!" };
 	}
 
 	@Override
 	public Material getMaterial() {
-		return Material.LEATHER_BOOTS;
+		return Material.getMaterial(getConfig().getString(
+				"jetpacks.boots.material", "LEATHER_BOOTS"));
 	}
 
 	@Override
@@ -37,7 +39,8 @@ public class Fallboots extends Jetpack {
 	}
 
 	@Override
-	public void onFuelUsageEvent(JetpackEvent event) {}
+	public void onFuelUsageEvent(JetpackEvent event) {
+	}
 
 	@Override
 	public boolean onFuelCheckEvent(JetpackEvent event) {
@@ -51,6 +54,9 @@ public class Fallboots extends Jetpack {
 
 	@Override
 	public CraftingRecipe getCraftingRecipe() {
+		if (!getConfig().getBoolean("jetpacks.boots.craftable", true)) {
+			return null;
+		}
 		CraftingRecipe recipe = new CraftingRecipe(getItem());
 		recipe.setSlot(6, Material.FEATHER);
 		recipe.setSlot(7, Material.LEATHER_BOOTS);

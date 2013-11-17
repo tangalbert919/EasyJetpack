@@ -21,7 +21,7 @@ public class CommandListener implements CommandExecutor {
 			return true;
 		}
 
-		if (args.length == 2 && args[0].equalsIgnoreCase("givejetpack")) {
+		if (args.length == 2 && args[0].equalsIgnoreCase("give")) {
 			Jetpack jetpack = JetpackManager.getInstance().getJetpackByName(
 					args[1].toLowerCase());
 			if (jetpack == null) {
@@ -47,6 +47,9 @@ public class CommandListener implements CommandExecutor {
 				sender.sendMessage("         Give name: " + jetpack.getGiveName());
 			}
 			sender.sendMessage(ChatColor.GOLD + "===========");
+		} else if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
+			EasyJetpack.getInstance().reloadConfig();
+			sender.sendMessage(ChatColor.GREEN + "Reloaded configuration!");
 		} else {
 			sender.sendMessage(ChatColor.RED
 					+ "Unknown command. Try /ej help for more information.");
@@ -61,10 +64,12 @@ public class CommandListener implements CommandExecutor {
 	private void showHelp(CommandSender sender) {
 		sender.sendMessage(ChatColor.GOLD + "===========");
 		sender.sendMessage("EasyJetpack commands:");
-		sender.sendMessage("   /ej givejetpack [jetpack name]");
+		sender.sendMessage("   /ej give [jetpack name]");
 		sender.sendMessage("         Gives a jetpack by it's name.");
 		sender.sendMessage("   /ej list");
 		sender.sendMessage("         Lists available jetpacks.");
+		sender.sendMessage("   /ej reload");
+		sender.sendMessage("         Reloads the configuration.");
 		sender.sendMessage("   /ej help");
 		sender.sendMessage("         Shows this help message.");
 		sender.sendMessage(ChatColor.GOLD + "===========");

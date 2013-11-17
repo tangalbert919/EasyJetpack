@@ -9,6 +9,7 @@ import com.github.jselby.ej.FlightTypes;
 import com.github.jselby.ej.Jetpack;
 import com.github.jselby.ej.JetpackEvent;
 import com.github.jselby.ej.Utils;
+import com.github.jselby.ej.VisualCandy;
 
 /**
  * A legacy Jetpack from a older version of the plugin. Also maintains
@@ -34,7 +35,8 @@ public class TraditionalJetpack extends Jetpack {
 
 	@Override
 	public Material getMaterial() {
-		return Material.GOLD_CHESTPLATE;
+		return Material.getMaterial(getConfig().getString(
+				"jetpacks.traditional.material", "GOLD_CHESTPLATE"));
 	}
 
 	@Override
@@ -42,21 +44,34 @@ public class TraditionalJetpack extends Jetpack {
 		Vector dir = event.getPlayer().getLocation().getDirection();
 		Vector vec = new Vector(dir.getX() * 0.8D, 0.8D, dir.getZ() * 0.8D);
 		event.getPlayer().setVelocity(vec);
+		
+		VisualCandy.jetpackEffect(event.getPlayer());
 	}
 
 	@Override
 	public void onFuelUsageEvent(JetpackEvent event) {
-		Utils.useFuel(event.getPlayer(), false, 1);
+		if (getConfig().getBoolean("fuel.enabled", true)) {
+			Utils.useFuel(event.getPlayer(), false, 1);
+		}
+		if (getConfig().getBoolean("jetpacks.traditional.durability", true))
+			Utils.damage(event.getPlayer(), getSlot(), 150);
 	}
 
 	@Override
 	public boolean onFuelCheckEvent(JetpackEvent event) {
-		boolean containsCoal = event.getPlayer().getInventory()
-				.contains(Material.COAL);
-		if (!containsCoal)
-			event.getPlayer().sendMessage(
-					ChatColor.RED + "You don't have enough fuel!");
-		return containsCoal;
+		if (getConfig().getBoolean("fuel.enabled", true)) {
+			boolean containsCoal = event
+					.getPlayer()
+					.getInventory()
+					.contains(
+							Material.getMaterial(getConfig().getString(
+									"fuel.material", "COAL")));
+			if (!containsCoal)
+				event.getPlayer().sendMessage(
+						ChatColor.RED + "You don't have enough fuel!");
+			return containsCoal;
+		}
+		return true;
 	}
 
 	@Override
@@ -66,6 +81,10 @@ public class TraditionalJetpack extends Jetpack {
 
 	@Override
 	public CraftingRecipe getCraftingRecipe() {
+		if (!getConfig().getBoolean("jetpacks.traditional.craftable", true)) {
+			return null;
+		}
+
 		CraftingRecipe recipe = new CraftingRecipe(getItem());
 		recipe.setSlot(1, Material.DIAMOND);
 		recipe.setSlot(4, Material.GOLD_CHESTPLATE);

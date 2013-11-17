@@ -1,0 +1,58 @@
+# EasyJetpack configuration file
+# Version v0.7
+# View http://dev.bukkit.org/bukkit-plugins/easyjetpack/ for more information
+
+# Jetpacks are all built-in Jetpacks
+jetpacks:
+    # Traditional, or 'puff' Jetpack
+    traditional:
+        # Is this Jetpack enabled?
+        enabled: true
+        # The name of the Material used.
+        # These names can be found at
+        # http://jd.bukkit.org/rb/apidocs/org/bukkit/Material.html
+        material: GOLD_CHESTPLATE
+        # Is durability enabled on this Jetpack?
+        durability: true
+        # Is the Jetpack craftable?
+        craftable: true
+    burst:
+        # Is this Jetpack enabled?
+        enabled: true
+        # The name of the Material used.
+        # These names can be found at
+        # http://jd.bukkit.org/rb/apidocs/org/bukkit/Material.html
+        material: GOLD_CHESTPLATE
+        # Is durability enabled on this Jetpack?
+        durability: true
+        # Is the Jetpack craftable?
+        craftable: true
+    teleport:
+        # Is this Jetpack enabled?
+        enabled: true
+        # The name of the Material used.
+        # These names can be found at
+        # http://jd.bukkit.org/rb/apidocs/org/bukkit/Material.html
+        material: CHAINMAIL_CHESTPLATE
+        # Is durability enabled on this Jetpack?
+        durability: true
+        # Is the Jetpack craftable?
+        craftable: true
+    boots:
+        # Are these fallboots enabled?
+        enabled: true
+        # The name of the Material used.
+        # These names can be found at
+        # http://jd.bukkit.org/rb/apidocs/org/bukkit/Material.html
+        material: LEATHER_BOOTS
+        # Is durability enabled on these boots?
+        durability: true
+        # Are the boots craftable?
+        craftable: true
+fuel:
+    # Is fuel usage enabled?
+    enabled: true
+    # The name of the Material used.
+    # These names can be found at
+    # http://jd.bukkit.org/rb/apidocs/org/bukkit/Material.html
+    material: COAL

@@ -9,6 +9,7 @@ import com.github.jselby.ej.FlightTypes;
 import com.github.jselby.ej.Jetpack;
 import com.github.jselby.ej.JetpackEvent;
 import com.github.jselby.ej.Utils;
+import com.github.jselby.ej.VisualCandy;
 
 /**
  * A Jetpack built for speed
@@ -33,7 +34,8 @@ public class BurstJetpack extends Jetpack {
 
 	@Override
 	public Material getMaterial() {
-		return Material.GOLD_CHESTPLATE;
+		return Material.getMaterial(getConfig().getString(
+				"jetpacks.burst.material", "GOLD_CHESTPLATE"));
 	}
 
 	@Override
@@ -49,21 +51,34 @@ public class BurstJetpack extends Jetpack {
 		}
 		Vector vec = new Vector(dir.getX() * 0.5D, y, dir.getZ() * 0.5D);
 		event.getPlayer().setVelocity(vec);
+		
+		VisualCandy.jetpackEffect(event.getPlayer());
 	}
 
 	@Override
 	public void onFuelUsageEvent(JetpackEvent event) {
-		Utils.useFuel(event.getPlayer(), false, 4);
+		if (getConfig().getBoolean("fuel.enabled", true)) {
+			Utils.useFuel(event.getPlayer(), false, 4);
+		}
+		if (getConfig().getBoolean("jetpacks.burst.durability", true))
+			Utils.damage(event.getPlayer(), getSlot(), 250);
 	}
 
 	@Override
 	public boolean onFuelCheckEvent(JetpackEvent event) {
-		boolean containsCoal = event.getPlayer().getInventory()
-				.contains(Material.COAL);
-		if (!containsCoal)
-			event.getPlayer().sendMessage(
-					ChatColor.RED + "You don't have enough fuel!");
-		return containsCoal;
+		if (getConfig().getBoolean("fuel.enabled", true)) {
+			boolean containsCoal = event
+					.getPlayer()
+					.getInventory()
+					.contains(
+							Material.getMaterial(getConfig().getString(
+									"fuel.material", "COAL")));
+			if (!containsCoal)
+				event.getPlayer().sendMessage(
+						ChatColor.RED + "You don't have enough fuel!");
+			return containsCoal;
+		}
+		return true;
 	}
 
 	@Override
@@ -73,15 +88,18 @@ public class BurstJetpack extends Jetpack {
 
 	@Override
 	public CraftingRecipe getCraftingRecipe() {
+		if (!getConfig().getBoolean("jetpacks.burst.craftable", true)) {
+			return null;
+		}
 		CraftingRecipe recipe = new CraftingRecipe(getItem());
 		recipe.setSlot(0, Material.REDSTONE);
 		recipe.setSlot(3, Material.REDSTONE);
 		recipe.setSlot(6, Material.REDSTONE);
-		
+
 		recipe.setSlot(1, Material.DIAMOND);
 		recipe.setSlot(4, Material.GOLD_CHESTPLATE);
 		recipe.setSlot(7, Material.FURNACE);
-		
+
 		recipe.setSlot(2, Material.REDSTONE);
 		recipe.setSlot(5, Material.REDSTONE);
 		recipe.setSlot(8, Material.REDSTONE);

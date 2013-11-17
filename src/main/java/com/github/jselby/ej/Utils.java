@@ -106,15 +106,23 @@ public class Utils {
 			myitem = player.getInventory().getItemInHand();
 		} else {
 			myitem = player.getInventory().getItem(
-					player.getInventory().first(Material.COAL));
+					player.getInventory().first(
+							Material.getMaterial(EasyJetpack.getInstance()
+									.getConfig()
+									.getString("fuel.material", "COAL"))));
 		}
 		coalToGiveBack = myitem.getAmount() - 1;
 		if (coalToGiveBack > 0) {
 			player.getInventory().remove(myitem);
 			if (!mustBeHolding) {
-				player.getInventory().addItem(new ItemStack(Material.COAL, 1));
+				player.getInventory().addItem(
+						new ItemStack(Material.getMaterial(EasyJetpack
+								.getInstance().getConfig()
+								.getString("fuel.material", "COAL")), 1));
 			} else {
-				player.setItemInHand(new ItemStack(Material.COAL, 1));
+				player.setItemInHand(new ItemStack(Material
+						.getMaterial(EasyJetpack.getInstance().getConfig()
+								.getString("fuel.material", "COAL")), 1));
 			}
 		}
 
@@ -123,7 +131,10 @@ public class Utils {
 			item = player.getItemInHand();
 		} else {
 			item = player.getInventory().getItem(
-					player.getInventory().first(Material.COAL));
+					player.getInventory().first(
+							Material.getMaterial(EasyJetpack.getInstance()
+									.getConfig()
+									.getString("fuel.material", "COAL"))));
 		}
 
 		short fuelUsage = 1;
@@ -160,7 +171,12 @@ public class Utils {
 			item = player.getInventory().getItem(Utils.findCoal(player, true));
 		}
 		ItemMeta itemMeta = item.getItemMeta();
-		itemMeta.setDisplayName("§R§4Burning Coal - " + fuelUsage + "% left");
+		itemMeta.setDisplayName("§R§4Burning "
+				+ Material
+						.getMaterial(
+								EasyJetpack.getInstance().getConfig()
+										.getString("fuel.material", "COAL"))
+						.name().toLowerCase() + " - " + fuelUsage + "% left");
 		itemMeta.setLore(newLore);
 		item.setItemMeta(itemMeta);
 
@@ -182,13 +198,20 @@ public class Utils {
 
 		if (coalToGiveBack > 0) {
 			player.getInventory().addItem(
-					new ItemStack(Material.COAL, coalToGiveBack));
+					new ItemStack(Material.getMaterial(EasyJetpack
+							.getInstance().getConfig()
+							.getString("fuel.material", "COAL")),
+							coalToGiveBack));
 		}
 	}
 
 	public static void shuffleCoal(Player player, boolean mustBeHolding) {
-		if (player.getInventory().contains(Material.COAL)) {
-			int position = player.getInventory().first(Material.COAL);
+		if (player.getInventory().contains(
+				Material.getMaterial(EasyJetpack.getInstance().getConfig()
+						.getString("fuel.material", "COAL")))) {
+			int position = player.getInventory().first(
+					Material.getMaterial(EasyJetpack.getInstance().getConfig()
+							.getString("fuel.material", "COAL")));
 			ItemStack stack = player.getInventory().getItem(position);
 			player.getInventory().removeItem(stack);
 			if (mustBeHolding) {
@@ -197,13 +220,20 @@ public class Utils {
 				player.getInventory().addItem(stack);
 			}
 		} else {
-			player.sendMessage(ChatColor.RED + "You have run out of coal!");
+			player.sendMessage(ChatColor.RED
+					+ "You have run out of "
+					+ Material
+							.getMaterial(
+									EasyJetpack.getInstance().getConfig()
+											.getString("fuel.material", "COAL"))
+							.name().toLowerCase() + "!");
 		}
 	}
 
 	public static int findCoal(Player player, boolean includeNormalCoal) {
 		ListIterator<ItemStack> it = player.getInventory().iterator();
-		Material fuelMaterial = Material.COAL;
+		Material fuelMaterial = Material.getMaterial(EasyJetpack.getInstance()
+				.getConfig().getString("fuel.material", "COAL"));
 		int id = -1;
 		int normalCoal = 0;
 		int count = 0;
@@ -216,8 +246,12 @@ public class Utils {
 						&& stack.getType().equals(fuelMaterial)
 						&& stack.hasItemMeta()
 						&& stack.getItemMeta().hasDisplayName()
-						&& stack.getItemMeta().getDisplayName()
-								.contains("Burning Coal")) {
+						&& stack.getItemMeta()
+								.getDisplayName()
+								.contains(
+										"Burning "
+												+ fuelMaterial.name()
+														.toLowerCase())) {
 
 					id = count;
 				} else if (id == -1 && stack != null
@@ -261,6 +295,47 @@ public class Utils {
 			return player.getInventory().getBoots();
 		default:
 			return null;
+		}
+	}
+	
+	/**
+	 * Sets the specified slot to the new item, using slots from Jetpack.Slot.
+	 * 
+	 * @param player
+	 *            The player who will be modified
+	 * @param slot
+	 *            The slot that will be modified
+	 */
+	public static void setSlot(Player player, Slot slot, ItemStack is) {
+		switch (slot) {
+		case HELD_ITEM:
+			player.setItemInHand(is);
+			break;
+		case HELMET:
+			player.getInventory().setHelmet(is);
+			break;
+		case CHESTPLATE:
+			player.getInventory().setChestplate(is);
+			break;
+		case LEGGINGS:
+			player.getInventory().setLeggings(is);
+			break;
+		case BOOTS:
+			player.getInventory().setBoots(is);
+			break;
+		default:
+			break;
+		}
+	}
+
+	public static void damage(Player player, Slot slot, int maximum) {
+		ItemStack jetpack = Utils.getSlot(player, slot);
+		jetpack.setDurability((short) (jetpack.getDurability() + 1));
+		if (jetpack.getDurability() > maximum) {
+			player.sendMessage(ChatColor.RED + "Your "
+					+ jetpack.getItemMeta().getDisplayName() + ChatColor.RESET
+					+ "" + ChatColor.RED + " is broken!");
+			Utils.setSlot(player, slot, new ItemStack(Material.AIR, 1));
 		}
 	}
 }

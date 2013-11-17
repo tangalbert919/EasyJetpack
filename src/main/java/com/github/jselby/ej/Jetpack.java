@@ -1,6 +1,7 @@
 package com.github.jselby.ej;
 
 import org.bukkit.Material;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -72,9 +73,8 @@ public abstract class Jetpack {
 	 * An event called when the control button has been pressed or toggled, and
 	 * the player has adequate fuel. This should consume fuel, but it shouldn't
 	 * fly the player around. This is handled by the onFlyEvent event. This
-	 * should also check if the jetpack is usable (from a damage prospective)
-	 * 
-	 * This should also inform the user if they run out of fuel.
+	 * should also check if the jetpack is usable (from a damage prospective),
+	 * and inform the user if they run out of fuel.
 	 * 
 	 * @param event
 	 *            The event
@@ -155,6 +155,15 @@ public abstract class Jetpack {
 	 */
 	public String getPermission() {
 		return "easyjetpack." + getGiveName();
+	}
+
+	/**
+	 * A simple method to return the configuration from the main class
+	 * 
+	 * @return The configuration FileConfigration
+	 */
+	public FileConfiguration getConfig() {
+		return EasyJetpack.getInstance().getConfig();
 	}
 
 	/**
