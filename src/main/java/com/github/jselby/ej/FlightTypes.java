@@ -37,5 +37,9 @@ public enum FlightTypes {
 	/**
 	 * Called when you are damaged by a mob
 	 */
-	DAMAGED_BY_MOB
+	DAMAGED_BY_MOB,
+	/**
+	 * Called when you are drowning
+	 */
+	DROWNING
 }
