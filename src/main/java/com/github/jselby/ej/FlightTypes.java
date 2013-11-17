@@ -2,12 +2,14 @@ package com.github.jselby.ej;
 
 /**
  * Enum containing various movement types
+ * 
  * @author James
- *
+ * 
  */
 public enum FlightTypes {
 	/**
 	 * Jetpack toggle via creative mode
+	 * 
 	 * @Deprecated Not implemented yet
 	 */
 	@Deprecated
@@ -19,5 +21,21 @@ public enum FlightTypes {
 	/**
 	 * Jetpack toggle via holding crouch
 	 */
-	CROUCH_CONSTANT
+	CROUCH_CONSTANT,
+	/**
+	 * Generally for fall boots, allows these to cancel fall damage
+	 */
+	FALLING,
+	/**
+	 * Called on the onInteractEvent
+	 */
+	INTERACT,
+	/**
+	 * Called when you are damaged by a player
+	 */
+	DAMAGED_BY_PLAYER,
+	/**
+	 * Called when you are damaged by a mob
+	 */
+	DAMAGED_BY_MOB
 }

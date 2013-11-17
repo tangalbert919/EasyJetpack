@@ -1,6 +1,7 @@
 package com.github.jselby.ej;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.Cancellable;
 
 /**
  * A event thrown when a player attempts to activate a Jetpack
@@ -8,9 +9,10 @@ import org.bukkit.entity.Player;
  * @author James
  * 
  */
-public class JetpackEvent {
+public class JetpackEvent implements Cancellable {
 	private Player player;
 	private FlightTypes type;
+	private boolean cancelled;
 
 	/**
 	 * Creates a jetpack event, assuming that the provided player should be
@@ -42,5 +44,15 @@ public class JetpackEvent {
 	 */
 	public FlightTypes getType() {
 		return type;
+	}
+
+	@Override
+	public boolean isCancelled() {
+		return cancelled;
+	}
+
+	@Override
+	public void setCancelled(boolean isCancelled) {
+		cancelled = isCancelled;
 	}
 }
