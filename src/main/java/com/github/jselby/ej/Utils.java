@@ -11,6 +11,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.github.jselby.ej.Jetpack.Slot;
+
 /**
  * A convenience class, containing simple methods for manipulation
  * 
@@ -110,8 +112,7 @@ public class Utils {
 		if (coalToGiveBack > 0) {
 			player.getInventory().remove(myitem);
 			if (!mustBeHolding) {
-				player.getInventory().addItem(
-						new ItemStack(Material.COAL, 1));
+				player.getInventory().addItem(new ItemStack(Material.COAL, 1));
 			} else {
 				player.setItemInHand(new ItemStack(Material.COAL, 1));
 			}
@@ -122,8 +123,7 @@ public class Utils {
 			item = player.getItemInHand();
 		} else {
 			item = player.getInventory().getItem(
-					player.getInventory().first(
-							Material.COAL));
+					player.getInventory().first(Material.COAL));
 		}
 
 		short fuelUsage = 1;
@@ -147,8 +147,7 @@ public class Utils {
 			fuelUsage = Short.parseShort(fuel);
 		}
 
-		fuelUsage -= (((double) 100)
-				/ ((double) 10) / factor);
+		fuelUsage -= (((double) 100) / ((double) 10) / factor);
 
 		List<String> newLore = new ArrayList<String>();
 		newLore.add("§R" + fuelUsage + "% left");
@@ -188,10 +187,8 @@ public class Utils {
 	}
 
 	public static void shuffleCoal(Player player, boolean mustBeHolding) {
-		if (player.getInventory().contains(
-				Material.COAL)) {
-			int position = player.getInventory().first(
-					Material.COAL);
+		if (player.getInventory().contains(Material.COAL)) {
+			int position = player.getInventory().first(Material.COAL);
 			ItemStack stack = player.getInventory().getItem(position);
 			player.getInventory().removeItem(stack);
 			if (mustBeHolding) {
@@ -238,5 +235,32 @@ public class Utils {
 		}
 
 		return id;
+	}
+
+	/**
+	 * Obtains the item that the player has in the relevant slot. Supports the
+	 * slots from Jetpack.Slot.
+	 * 
+	 * @param player
+	 *            The player to obtain the item from
+	 * @param slot
+	 *            The slot that should be checked
+	 * @return A ItemStack, or null
+	 */
+	public static ItemStack getSlot(Player player, Slot slot) {
+		switch (slot) {
+		case HELD_ITEM:
+			return player.getItemInHand();
+		case HELMET:
+			return player.getInventory().getHelmet();
+		case CHESTPLATE:
+			return player.getInventory().getChestplate();
+		case LEGGINGS:
+			return player.getInventory().getLeggings();
+		case BOOTS:
+			return player.getInventory().getBoots();
+		default:
+			return null;
+		}
 	}
 }

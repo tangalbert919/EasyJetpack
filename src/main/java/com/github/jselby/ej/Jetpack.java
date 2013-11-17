@@ -112,6 +112,14 @@ public abstract class Jetpack {
 	public abstract CraftingRecipe getCraftingRecipe();
 
 	/**
+	 * Gets the slot that this item belongs to. The material should be able to
+	 * be put into this slot, but this won't be checked.
+	 * 
+	 * @return A Slot from the Jetpack class, representing a slot
+	 */
+	public abstract Jetpack.Slot getSlot();
+
+	/**
 	 * A convenience method to create a ItemStack from the provided Material and
 	 * data values. This is used internally, but can also be used and overridden
 	 * by external plugins.
@@ -147,5 +155,15 @@ public abstract class Jetpack {
 	 */
 	public String getPermission() {
 		return "easyjetpack." + getGiveName();
+	}
+
+	/**
+	 * A representation of the slot's that the player can have
+	 * 
+	 * @author James
+	 * 
+	 */
+	public static enum Slot {
+		HELMET, CHESTPLATE, LEGGINGS, BOOTS, HELD_ITEM
 	}
 }

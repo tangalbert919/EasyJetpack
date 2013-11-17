@@ -92,4 +92,9 @@ public class BurstJetpack extends Jetpack {
 	public String getGiveName() {
 		return "burst";
 	}
+
+	@Override
+	public Slot getSlot() {
+		return Slot.CHESTPLATE;
+	}
 }

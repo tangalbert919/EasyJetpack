@@ -86,4 +86,9 @@ public class TeleportJetpack extends Jetpack {
 	public String getGiveName() {
 		return "teleportation";
 	}
+
+	@Override
+	public Slot getSlot() {
+		return Slot.CHESTPLATE;
+	}
 }

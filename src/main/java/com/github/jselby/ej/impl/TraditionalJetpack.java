@@ -77,4 +77,9 @@ public class TraditionalJetpack extends Jetpack {
 	public String getGiveName() {
 		return "standard";
 	}
+
+	@Override
+	public Slot getSlot() {
+		return Slot.CHESTPLATE;
+	}
 }

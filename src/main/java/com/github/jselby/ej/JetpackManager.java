@@ -71,19 +71,14 @@ public class JetpackManager {
 	 * @return
 	 */
 	public boolean onJetpackEvent(final JetpackEvent event) {
-		if (event.getPlayer().getInventory().getChestplate() == null) {
-			// The player doesn't have anything equipped - skip them
-			return false;
-		}
-
 		Iterator<Jetpack> it = jetpacks.iterator();
 		while (it.hasNext()) {
 			Jetpack next = it.next();
 			if ((next.getMovementType() == event.getType() || (next
 					.getMovementType() == FlightTypes.CROUCH_CONSTANT && event
 					.getType() == FlightTypes.CROUCH))
-					&& Utils.isItemStackEqual(next.getItem(), event.getPlayer()
-							.getInventory().getChestplate())) {
+					&& Utils.isItemStackEqual(next.getItem(),
+							Utils.getSlot(event.getPlayer(), next.getSlot()))) {
 				if (!event.getPlayer().hasPermission(next.getPermission())) {
 					event.getPlayer()
 							.sendMessage(
@@ -130,12 +125,14 @@ public class JetpackManager {
 
 	/**
 	 * Finds a Jetpack by it's give name
-	 * @param name The name of the Jetpack
+	 * 
+	 * @param name
+	 *            The name of the Jetpack
 	 * @return A Jetpack, or null if one cannot be found
 	 */
 	public Jetpack getJetpackByName(String name) {
 		Iterator<Jetpack> it = jetpacks.iterator();
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 			Jetpack next = it.next();
 			if (next.getGiveName().equalsIgnoreCase(name)) {
 				return next;
@@ -143,9 +140,10 @@ public class JetpackManager {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Obtains a array of all registered jetpacks
+	 * 
 	 * @return A Jetpack array
 	 */
 	public Jetpack[] getJetpacks() {
