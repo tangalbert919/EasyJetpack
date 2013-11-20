@@ -161,7 +161,7 @@ public class Utils {
 		fuelUsage -= (((double) 100) / ((double) 10) / factor);
 
 		List<String> newLore = new ArrayList<String>();
-		newLore.add("§R" + fuelUsage + "% left");
+		newLore.add(ChatColor.RESET + "" + fuelUsage + "% left");
 
 		int coal = Utils.findCoal(player, true);
 
@@ -171,7 +171,7 @@ public class Utils {
 			item = player.getInventory().getItem(Utils.findCoal(player, true));
 		}
 		ItemMeta itemMeta = item.getItemMeta();
-		itemMeta.setDisplayName("§R§4Burning "
+		itemMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.DARK_RED + "Burning "
 				+ Material
 						.getMaterial(
 								EasyJetpack.getInstance().getConfig()
