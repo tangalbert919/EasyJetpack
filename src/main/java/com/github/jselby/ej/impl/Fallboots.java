@@ -8,6 +8,13 @@ import com.github.jselby.ej.FlightTypes;
 import com.github.jselby.ej.Jetpack;
 import com.github.jselby.ej.JetpackEvent;
 
+/**
+ * Traditional Fall-Boots from plugin versions past. Fully compatible with them
+ * as well.
+ * 
+ * @author James
+ * 
+ */
 public class Fallboots extends Jetpack {
 
 	@Override
