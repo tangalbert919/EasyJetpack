@@ -1,6 +1,7 @@
 name: EasyJetpack
 main: com.github.jselby.ej.EasyJetpack
 version: 0.7
+author: j_selby
 permissions:
    easyjetpack.jetpackname:
       description: Allows a player to use a jetpack
