@@ -6,6 +6,7 @@ import net.jselby.ej.api.Jetpack;
 import net.jselby.ej.api.JetpackEvent;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
@@ -41,7 +42,10 @@ public class TeleportJetpack extends Jetpack {
 	public void onFlyEvent(JetpackEvent event) {
 		Block block = event.getPlayer().getTargetBlock(null, 30);
 		if (block != null) {
-			event.getPlayer().teleport(block.getLocation().add(0, 2, 0));
+			Location loc = block.getLocation().add(0, 2, 0);
+			loc.setYaw(event.getPlayer().getLocation().getYaw());
+			loc.setPitch(event.getPlayer().getLocation().getPitch());
+			event.getPlayer().teleport(loc);
 		}
 	}
 
