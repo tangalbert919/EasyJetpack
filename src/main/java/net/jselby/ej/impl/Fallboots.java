@@ -1,12 +1,11 @@
-package com.github.jselby.ej.impl;
+package net.jselby.ej.impl;
+
+import net.jselby.ej.api.FlightTypes;
+import net.jselby.ej.api.Jetpack;
+import net.jselby.ej.api.JetpackEvent;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-
-import com.github.jselby.ej.CraftingRecipe;
-import com.github.jselby.ej.FlightTypes;
-import com.github.jselby.ej.Jetpack;
-import com.github.jselby.ej.JetpackEvent;
 
 /**
  * Traditional Fall-Boots from plugin versions past. Fully compatible with them
@@ -42,6 +41,13 @@ public class Fallboots extends Jetpack {
 
 	@Override
 	public void onFlyEvent(JetpackEvent event) {
+		if (getConfig().getBoolean("jetpacks.boots.jetpackrequired", false)) {
+			if (!event.isPlayerWearing(TraditionalJetpack.class)
+					&& !event.isPlayerWearing(TeleportJetpack.class)
+					&& !event.isPlayerWearing(BurstJetpack.class)) {
+				return;
+			}
+		}
 		event.setCancelled(true);
 	}
 

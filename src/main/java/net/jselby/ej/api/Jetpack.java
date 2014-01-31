@@ -1,4 +1,8 @@
-package com.github.jselby.ej;
+package net.jselby.ej.api;
+
+import net.jselby.ej.EasyJetpack;
+import net.jselby.ej.Utils;
+import net.jselby.ej.impl.CraftingRecipe;
 
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;

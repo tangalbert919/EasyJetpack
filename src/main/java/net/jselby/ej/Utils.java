@@ -1,17 +1,18 @@
-package com.github.jselby.ej;
+package net.jselby.ej;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import net.jselby.ej.api.Jetpack.Slot;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import com.github.jselby.ej.Jetpack.Slot;
+import org.bukkit.util.Vector;
 
 /**
  * A convenience class, containing simple methods for manipulation
@@ -337,5 +338,26 @@ public class Utils {
 					+ "" + ChatColor.RED + " is broken!");
 			Utils.setSlot(player, slot, new ItemStack(Material.AIR, 1));
 		}
+	}
+	
+	public static Vector addVector(Player p, Vector v, double maxX, double maxY, double maxZ) {
+		Vector curr = p.getVelocity();
+		Vector added = curr.add(v).normalize();
+		if (added.getX() > maxX) {
+			added.setX(maxX);
+		}
+		if (added.getX() < -maxX) {
+			added.setX(-maxX);
+		}
+		if (added.getY() > maxY) {
+			added.setY(maxY);
+		}
+		if (added.getZ() > maxZ) {
+			added.setZ(maxZ);
+		}
+		if (added.getZ() < -maxZ) {
+			added.setZ(-maxZ);
+		}
+		return added;
 	}
 }

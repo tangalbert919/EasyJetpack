@@ -1,4 +1,6 @@
-package com.github.jselby.ej;
+package net.jselby.ej.api;
+
+import net.jselby.ej.Utils;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -54,5 +56,19 @@ public class JetpackEvent implements Cancellable {
 	@Override
 	public void setCancelled(boolean isCancelled) {
 		cancelled = isCancelled;
+	}
+
+	/**
+	 * Checks if the player is wearing a certain
+	 * Jetpack.
+	 * @param jetpackClass The Jetpack to check
+	 * @return If the player is wearing the Jetpack, or false if the Jetpack doesn't exist.
+	 */
+	public boolean isPlayerWearing(Class<? extends Jetpack> jetpackClass) {
+		Jetpack pack = EasyJetpackAPI.getManager().getJetpackByClass(jetpackClass);
+		if (pack == null) {
+			return false;
+		}
+		return Utils.isItemStackEqual(getPlayer().getInventory().getChestplate(), pack.getItem());
 	}
 }

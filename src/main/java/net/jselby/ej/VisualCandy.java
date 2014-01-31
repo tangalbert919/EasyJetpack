@@ -1,4 +1,4 @@
-package com.github.jselby.ej;
+package net.jselby.ej;
 
 import org.bukkit.Effect;
 import org.bukkit.Location;

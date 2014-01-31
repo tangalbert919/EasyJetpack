@@ -1,8 +1,13 @@
-package com.github.jselby.ej;
+package net.jselby.ej;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+
+import net.jselby.ej.api.FlightTypes;
+import net.jselby.ej.api.Jetpack;
+import net.jselby.ej.api.JetpackEvent;
+import net.jselby.ej.impl.CraftingRecipe;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -17,7 +22,6 @@ import org.bukkit.ChatColor;
 public class JetpackManager {
 
 	private EasyJetpack plugin;
-	private static JetpackManager instance;
 	private ArrayList<Jetpack> jetpacks;
 	private HashMap<Runnable, Integer> runnables;
 
@@ -28,7 +32,6 @@ public class JetpackManager {
 	 *            The main Jetpack plugin
 	 */
 	JetpackManager(EasyJetpack plugin) {
-		instance = this;
 		this.plugin = plugin;
 
 		jetpacks = new ArrayList<Jetpack>();
@@ -142,27 +145,30 @@ public class JetpackManager {
 	}
 
 	/**
+	 * Finds a Jetpack by it's class
+	 * 
+	 * @param jetpackClass
+	 *            The class of the Jetpack
+	 * @return A Jetpack, or null if one cannot be found
+	 */
+	public Jetpack getJetpackByClass(Class<? extends Jetpack> jetpackClass) {
+		Iterator<Jetpack> it = jetpacks.iterator();
+		while (it.hasNext()) {
+			Jetpack next = it.next();
+			if (next.getClass().getName()
+					.equalsIgnoreCase(jetpackClass.getName())) {
+				return next;
+			}
+		}
+		return null;
+	}
+
+	/**
 	 * Obtains a array of all registered jetpacks
 	 * 
 	 * @return A Jetpack array
 	 */
 	public Jetpack[] getJetpacks() {
 		return jetpacks.toArray(new Jetpack[jetpacks.size()]);
-	}
-
-	/**
-	 * Obtains a instance of the JetpackManager, for plugins to register and
-	 * modify Jetpacks
-	 * 
-	 * @return A instance of the JetpackManager
-	 * @throws NullPointerException
-	 *             Thrown if the plugin hasn't been enabled yet
-	 */
-	public static JetpackManager getInstance() {
-		if (instance == null) {
-			throw new NullPointerException(
-					"Tried to obtain a JetpackManager instance when the plugin wasn't enabled!");
-		}
-		return instance;
 	}
 }

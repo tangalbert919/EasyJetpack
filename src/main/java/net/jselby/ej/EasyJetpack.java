@@ -1,15 +1,20 @@
-package com.github.jselby.ej;
+package net.jselby.ej;
 
 import java.io.File;
+import java.io.IOException;
+
+import net.jselby.ej.api.EasyJetpackAPI;
+import net.jselby.ej.impl.BurstJetpack;
+import net.jselby.ej.impl.Fallboots;
+import net.jselby.ej.impl.TeleportJetpack;
+import net.jselby.ej.impl.TraditionalJetpack;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import com.github.jselby.ej.impl.BurstJetpack;
-import com.github.jselby.ej.impl.Fallboots;
-import com.github.jselby.ej.impl.TeleportJetpack;
-import com.github.jselby.ej.impl.TraditionalJetpack;
+import org.mcstats.Metrics;
+import org.mcstats.Metrics.Graph;
+import org.mcstats.Metrics.Plotter;
 
 /**
  * The main EasyJetpack class. This registers the default Jetpacks, as well as
@@ -49,7 +54,6 @@ public class EasyJetpack extends JavaPlugin {
 
 		// Register the command listener
 		getServer().getPluginCommand("ej").setExecutor(new CommandListener());
-		;
 
 		// Creates a manager, which internal/external code will use
 		JetpackManager manager = new JetpackManager(this);
@@ -64,6 +68,41 @@ public class EasyJetpack extends JavaPlugin {
 		if (getConfig().getBoolean("jetpacks.boots.enabled", true))
 			manager.addJetpack(new Fallboots());
 
+		// Make the API ready for use
+		new EasyJetpackAPI(manager);
+
+		// Load Metrics
+		try {
+			Metrics metrics = new Metrics(this);
+			Graph graph = metrics.createGraph("Jetpack count");
+			for (int i = 0; i <= 10; i++) {
+				final int count = i;
+				graph.addPlotter(new Plotter("" + count) {
+					@Override
+					public int getValue() {
+						if (EasyJetpackAPI.getManager().getJetpacks().length == count) {
+							return 1;
+						}
+						return 0;
+					}
+				});
+			}
+			graph.addPlotter(new Plotter("More then 10") {
+				@Override
+				public int getValue() {
+					if (EasyJetpackAPI.getManager().getJetpacks().length > 10) {
+						return 1;
+					}
+					return 0;
+				}
+			});
+			metrics.start();
+		} catch (IOException e) {
+			getLogger().warning(
+					"Metrics failed to start: " + e.getClass().getName() + ": "
+							+ e.getMessage());
+		}
+
 		getLogger().info(
 				"EasyJetpack (v" + getDescription().getVersion()
 						+ ") has been successfully enabled!");
@@ -77,13 +116,21 @@ public class EasyJetpack extends JavaPlugin {
 	/**
 	 * Obtains a instance of the plugin
 	 * 
-	 * @return
+	 * @return A EasyJetpack instance
 	 */
 	public static EasyJetpack getInstance() {
 		return instance;
 	}
 
+	/**
+	 * Checks if EasyJetpack has allowed a player to fly
+	 * 
+	 * @param player
+	 *            The player to check
+	 * @return If the player has been allowed to fly
+	 */
 	public boolean haveAllowedFlying(Player player) {
+		// TODO: Add compatability with Essentials and other /fly plugins
 		return true;
 	}
 }

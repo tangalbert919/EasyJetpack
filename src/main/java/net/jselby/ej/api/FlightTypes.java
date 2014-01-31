@@ -1,4 +1,4 @@
-package com.github.jselby.ej;
+package net.jselby.ej.api;
 
 /**
  * Enum containing various movement types

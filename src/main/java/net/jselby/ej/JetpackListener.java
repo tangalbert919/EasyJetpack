@@ -1,4 +1,8 @@
-package com.github.jselby.ej;
+package net.jselby.ej;
+
+import net.jselby.ej.api.EasyJetpackAPI;
+import net.jselby.ej.api.FlightTypes;
+import net.jselby.ej.api.JetpackEvent;
 
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -17,7 +21,7 @@ public class JetpackListener implements Listener {
 		if (evt.isSneaking()) {
 			JetpackEvent event = new JetpackEvent(evt.getPlayer(),
 					FlightTypes.CROUCH);
-			JetpackManager.getInstance().onJetpackEvent(event);
+			EasyJetpackAPI.getManager().onJetpackEvent(event);
 			evt.setCancelled(event.isCancelled());
 		}
 	}
@@ -29,7 +33,7 @@ public class JetpackListener implements Listener {
 			if (!evt.isFlying()) {
 				JetpackEvent event = new JetpackEvent(evt.getPlayer(),
 						FlightTypes.CROUCH);
-				JetpackManager.getInstance().onJetpackEvent(event);
+				EasyJetpackAPI.getManager().onJetpackEvent(event);
 				evt.setCancelled(event.isCancelled());
 			}
 		}
@@ -41,13 +45,13 @@ public class JetpackListener implements Listener {
 			if (evt.getCause() == DamageCause.FALL) {
 				JetpackEvent event = new JetpackEvent(
 						((Player) evt.getEntity()), FlightTypes.FALLING);
-				JetpackManager.getInstance().onJetpackEvent(event);
+				EasyJetpackAPI.getManager().onJetpackEvent(event);
 				evt.setCancelled(event.isCancelled());
 			}
 			if (evt.getCause() == DamageCause.DROWNING) {
 				JetpackEvent event = new JetpackEvent(
 						((Player) evt.getEntity()), FlightTypes.DROWNING);
-				JetpackManager.getInstance().onJetpackEvent(event);
+				EasyJetpackAPI.getManager().onJetpackEvent(event);
 				evt.setCancelled(event.isCancelled());
 			}
 		}
@@ -57,7 +61,7 @@ public class JetpackListener implements Listener {
 	public void onPlayerInteract(PlayerInteractEvent evt) {
 		JetpackEvent event = new JetpackEvent(evt.getPlayer(),
 				FlightTypes.INTERACT);
-		JetpackManager.getInstance().onJetpackEvent(event);
+		EasyJetpackAPI.getManager().onJetpackEvent(event);
 		evt.setCancelled(event.isCancelled());
 	}
 	
@@ -67,12 +71,12 @@ public class JetpackListener implements Listener {
 			if (evt.getDamager() instanceof Player) {
 				JetpackEvent event = new JetpackEvent((Player) evt.getEntity(),
 						FlightTypes.DAMAGED_BY_PLAYER);
-				JetpackManager.getInstance().onJetpackEvent(event);
+				EasyJetpackAPI.getManager().onJetpackEvent(event);
 				evt.setCancelled(event.isCancelled());
 			} else {
 				JetpackEvent event = new JetpackEvent((Player) evt.getEntity(),
 						FlightTypes.DAMAGED_BY_MOB);
-				JetpackManager.getInstance().onJetpackEvent(event);
+				EasyJetpackAPI.getManager().onJetpackEvent(event);
 				evt.setCancelled(event.isCancelled());
 			}
 		}

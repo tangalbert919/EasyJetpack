@@ -1,5 +1,5 @@
 # EasyJetpack configuration file
-# Version v0.7
+# Version v1.1
 # View http://dev.bukkit.org/bukkit-plugins/easyjetpack/ for more information
 
 # Jetpacks are all built-in Jetpacks
@@ -49,6 +49,8 @@ jetpacks:
         durability: true
         # Are the boots craftable?
         craftable: true
+        # Do the boots need a Jetpack to function?
+        jetpackrequired: false
 fuel:
     # Is fuel usage enabled?
     enabled: true

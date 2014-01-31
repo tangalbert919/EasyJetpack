@@ -1,10 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.github.jselby</groupId>
-  <artifactId>easyjetpack</artifactId>
-  <version>0.7</version>
+  <groupId>net.jselby.ej</groupId>
+  <artifactId>EasyJetpack</artifactId>
+  <version>1.1</version>
   <name>EasyJetpack</name>
   <description>Fly away in a jetpack!</description>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -16,9 +19,33 @@
           <target/>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.2</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <artifactSet>
+                <excludes>
+                  <exclude>org.bukkit:*</exclude>
+                </excludes>
+              </artifactSet>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
   <repositories>
+  	<repository>
+        <id>Plugin Metrics</id>
+        <url>http://repo.mcstats.org/content/repositories/public</url>
+    </repository>
     <repository>
       <id>bukkit-repo</id>
       <url>http://repo.bukkit.org/content/groups/public/</url>
@@ -31,5 +58,11 @@
   		<artifactId>bukkit</artifactId>
   		<version>1.7.2-R0.1-SNAPSHOT</version>
   	</dependency>
+  	<dependency>
+        <groupId>org.mcstats.bukkit</groupId>
+        <artifactId>metrics</artifactId>
+        <version>R6</version>
+        <scope>compile</scope>
+    </dependency>
   </dependencies>
 </project>

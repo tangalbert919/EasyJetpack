@@ -1,18 +1,17 @@
-package com.github.jselby.ej.impl;
+package net.jselby.ej.impl;
+
+import net.jselby.ej.Utils;
+import net.jselby.ej.api.FlightTypes;
+import net.jselby.ej.api.Jetpack;
+import net.jselby.ej.api.JetpackEvent;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 
-import com.github.jselby.ej.CraftingRecipe;
-import com.github.jselby.ej.FlightTypes;
-import com.github.jselby.ej.Jetpack;
-import com.github.jselby.ej.JetpackEvent;
-import com.github.jselby.ej.Utils;
-
 /**
- * A jetpack for teleporting around
+ * A jetpack for teleporting around, using the power of ender pearls
  * 
  * @author James
  * 

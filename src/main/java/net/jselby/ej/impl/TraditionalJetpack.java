@@ -1,67 +1,60 @@
-package com.github.jselby.ej.impl;
+package net.jselby.ej.impl;
+
+import net.jselby.ej.Utils;
+import net.jselby.ej.VisualCandy;
+import net.jselby.ej.api.FlightTypes;
+import net.jselby.ej.api.Jetpack;
+import net.jselby.ej.api.JetpackEvent;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.util.Vector;
 
-import com.github.jselby.ej.CraftingRecipe;
-import com.github.jselby.ej.FlightTypes;
-import com.github.jselby.ej.Jetpack;
-import com.github.jselby.ej.JetpackEvent;
-import com.github.jselby.ej.Utils;
-import com.github.jselby.ej.VisualCandy;
-
 /**
- * A Jetpack built for speed
+ * A legacy Jetpack from a older version of the plugin. Also maintains
+ * compatibility with it.
  * 
  * @author James
  * 
  */
-public class BurstJetpack extends Jetpack {
+public class TraditionalJetpack extends Jetpack {
 
 	@Override
 	public String getName() {
-		return ChatColor.RESET + "" + ChatColor.BLUE + "Burst Jetpack";
+		return ChatColor.RESET + "" + ChatColor.DARK_RED + "Jetpack";
 	}
 
 	@Override
 	public String[] getDescription() {
 		return new String[] {
-				ChatColor.RESET + "Need to climb into the atmosphere",
-				ChatColor.RESET + "at great speeds? The burst jetpack",
-				ChatColor.RESET + "is for you!" };
+				ChatColor.RESET + "Fly away in the Jetpack 3000!",
+				ChatColor.RESET + "Limited time only! Only $9.95",
+				ChatColor.RESET + "at your local black market." };
 	}
 
 	@Override
 	public Material getMaterial() {
 		return Material.getMaterial(getConfig().getString(
-				"jetpacks.burst.material", "GOLD_CHESTPLATE"));
+				"jetpacks.traditional.material", "GOLD_CHESTPLATE"));
 	}
 
 	@Override
 	public void onFlyEvent(JetpackEvent event) {
 		Vector dir = event.getPlayer().getLocation().getDirection();
-		double y = event.getPlayer().getVelocity().getY();
-		if (y < 0.3D) {
-			y = 0.3D;
-		}
-		y *= 1.3D;
-		if (y > 10) {
-			y = 10;
-		}
-		Vector vec = new Vector(dir.getX() * 0.5D, y, dir.getZ() * 0.5D);
-		event.getPlayer().setVelocity(vec);
-		
+		event.getPlayer().setVelocity(
+				Utils.addVector(event.getPlayer(), new Vector(
+						dir.getX() * 0.8D, 0.8D, dir.getZ() * 0.8D), 0.45, 0.6, 0.45));
+
 		VisualCandy.jetpackEffect(event.getPlayer());
 	}
 
 	@Override
 	public void onFuelUsageEvent(JetpackEvent event) {
 		if (getConfig().getBoolean("fuel.enabled", true)) {
-			Utils.useFuel(event.getPlayer(), false, 4);
+			Utils.useFuel(event.getPlayer(), false, 1);
 		}
-		if (getConfig().getBoolean("jetpacks.burst.durability", true))
-			Utils.damage(event.getPlayer(), getSlot(), 250);
+		if (getConfig().getBoolean("jetpacks.traditional.durability", true))
+			Utils.damage(event.getPlayer(), getSlot(), 150);
 	}
 
 	@Override
@@ -83,32 +76,25 @@ public class BurstJetpack extends Jetpack {
 
 	@Override
 	public FlightTypes getMovementType() {
-		return FlightTypes.CROUCH_CONSTANT;
+		return FlightTypes.CROUCH;
 	}
 
 	@Override
 	public CraftingRecipe getCraftingRecipe() {
-		if (!getConfig().getBoolean("jetpacks.burst.craftable", true)) {
+		if (!getConfig().getBoolean("jetpacks.traditional.craftable", true)) {
 			return null;
 		}
-		CraftingRecipe recipe = new CraftingRecipe(getItem());
-		recipe.setSlot(0, Material.REDSTONE);
-		recipe.setSlot(3, Material.REDSTONE);
-		recipe.setSlot(6, Material.REDSTONE);
 
+		CraftingRecipe recipe = new CraftingRecipe(getItem());
 		recipe.setSlot(1, Material.DIAMOND);
 		recipe.setSlot(4, Material.GOLD_CHESTPLATE);
 		recipe.setSlot(7, Material.FURNACE);
-
-		recipe.setSlot(2, Material.REDSTONE);
-		recipe.setSlot(5, Material.REDSTONE);
-		recipe.setSlot(8, Material.REDSTONE);
 		return recipe;
 	}
 
 	@Override
 	public String getGiveName() {
-		return "burst";
+		return "standard";
 	}
 
 	@Override
