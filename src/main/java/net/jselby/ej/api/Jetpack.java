@@ -169,6 +169,11 @@ public abstract class Jetpack {
 	public FileConfiguration getConfig() {
 		return EasyJetpack.getInstance().getConfig();
 	}
+	
+	/**
+	 * Checks if repairing items is allowed
+	 */
+	public abstract boolean isRepairingDisabled();
 
 	/**
 	 * A representation of the slot's that the player can have

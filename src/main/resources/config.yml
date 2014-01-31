@@ -16,6 +16,8 @@ jetpacks:
         durability: true
         # Is the Jetpack craftable?
         craftable: true
+        # Is the Jetpack repairable?
+        antianvil: true
     burst:
         # Is this Jetpack enabled?
         enabled: true
@@ -27,6 +29,8 @@ jetpacks:
         durability: true
         # Is the Jetpack craftable?
         craftable: true
+        # Is the Jetpack repairable?
+        antianvil: true
     teleport:
         # Is this Jetpack enabled?
         enabled: true
@@ -38,6 +42,8 @@ jetpacks:
         durability: true
         # Is the Jetpack craftable?
         craftable: true
+        # Is the Jetpack repairable?
+        antianvil: true
     boots:
         # Are these fallboots enabled?
         enabled: true
@@ -51,6 +57,8 @@ jetpacks:
         craftable: true
         # Do the boots need a Jetpack to function?
         jetpackrequired: false
+        # Is the Jetpack repairable?
+        antianvil: true
 fuel:
     # Is fuel usage enabled?
     enabled: true

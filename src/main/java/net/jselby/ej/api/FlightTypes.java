@@ -41,5 +41,9 @@ public enum FlightTypes {
 	/**
 	 * Called when you are drowning
 	 */
-	DROWNING
+	DROWNING,
+	/**
+	 * Called when a player completes a Anvil transaction
+	 */
+	ANVIL
 }

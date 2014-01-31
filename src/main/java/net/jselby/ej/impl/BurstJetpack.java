@@ -50,7 +50,8 @@ public class BurstJetpack extends Jetpack {
 		}
 		event.getPlayer().setVelocity(
 				Utils.addVector(event.getPlayer(), new Vector(
-						dir.getX() * 0.5D, y, dir.getZ() * 0.5D), 0.45, 0.6, 0.45));
+						dir.getX() * 0.5D, y, dir.getZ() * 0.5D), 0.45, 0.6,
+						0.45));
 
 		VisualCandy.jetpackEffect(event.getPlayer());
 	}
@@ -114,5 +115,10 @@ public class BurstJetpack extends Jetpack {
 	@Override
 	public Slot getSlot() {
 		return Slot.CHESTPLATE;
+	}
+	
+	@Override
+	public boolean isRepairingDisabled() {
+		return getConfig().getBoolean("jetpacks.burst.antianvil", true);
 	}
 }

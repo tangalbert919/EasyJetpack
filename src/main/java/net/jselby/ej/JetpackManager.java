@@ -11,6 +11,7 @@ import net.jselby.ej.impl.CraftingRecipe;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * This class manages Jetpacks, and calls the Jetpack events when they are
@@ -77,6 +78,12 @@ public class JetpackManager {
 		Iterator<Jetpack> it = jetpacks.iterator();
 		while (it.hasNext()) {
 			Jetpack next = it.next();
+			if (event.getType() == FlightTypes.ANVIL
+					&& Utils.isItemStackEqual(next.getItem(), event.getItem())
+					&& next.isRepairingDisabled()) {
+				event.setCancelled(true);
+				return false;
+			}
 			if ((next.getMovementType() == event.getType() || (next
 					.getMovementType() == FlightTypes.CROUCH_CONSTANT && event
 					.getType() == FlightTypes.CROUCH))
@@ -97,7 +104,8 @@ public class JetpackManager {
 							if (event.getPlayer().isSneaking()) {
 								boolean success = onJetpackEvent(new JetpackEvent(
 										event.getPlayer(),
-										FlightTypes.CROUCH_CONSTANT));
+										FlightTypes.CROUCH_CONSTANT,
+										event.getItem()));
 								if (!success) {
 									Bukkit.getScheduler().cancelTask(
 											runnables.get(this));
@@ -170,5 +178,16 @@ public class JetpackManager {
 	 */
 	public Jetpack[] getJetpacks() {
 		return jetpacks.toArray(new Jetpack[jetpacks.size()]);
+	}
+
+	public boolean isJetpack(ItemStack item) {
+		Iterator<Jetpack> it = jetpacks.iterator();
+		while (it.hasNext()) {
+			Jetpack next = it.next();
+			if (Utils.isItemStackEqual(next.getItem(), item)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

@@ -82,4 +82,8 @@ public class Fallboots extends Jetpack {
 		return Slot.BOOTS;
 	}
 
+	@Override
+	public boolean isRepairingDisabled() {
+		return getConfig().getBoolean("jetpacks.boots.antianvil", true);
+	}
 }

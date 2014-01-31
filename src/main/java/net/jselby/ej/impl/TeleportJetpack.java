@@ -113,4 +113,9 @@ public class TeleportJetpack extends Jetpack {
 	public Slot getSlot() {
 		return Slot.CHESTPLATE;
 	}
+	
+	@Override
+	public boolean isRepairingDisabled() {
+		return getConfig().getBoolean("jetpacks.teleport.antianvil", true);
+	}
 }
