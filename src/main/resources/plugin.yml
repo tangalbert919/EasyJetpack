@@ -10,6 +10,9 @@ permissions:
    easyjetpack.admin:
       description: Allows access to /ej
       default: op
+   easyjetpack.nofall:
+      description: Disables all fall damage, while wearing a jetpack
+      default: op
 commands:
    ej:
       description: Various EasyJetpack admin commmands
