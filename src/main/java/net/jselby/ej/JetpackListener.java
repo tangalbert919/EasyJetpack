@@ -36,7 +36,9 @@ public class JetpackListener implements Listener {
 				JetpackEvent event = new JetpackEvent(evt.getPlayer(),
 						FlightTypes.CROUCH, null);
 				EasyJetpackAPI.getManager().onJetpackEvent(event);
-				evt.setCancelled(event.isCancelled());
+                if (event.isCancelled()) {
+                    evt.setCancelled(true);
+                }
 			}
 		}
 	}
@@ -48,13 +50,17 @@ public class JetpackListener implements Listener {
 				JetpackEvent event = new JetpackEvent(
 						((Player) evt.getEntity()), FlightTypes.FALLING, null);
 				EasyJetpackAPI.getManager().onJetpackEvent(event);
-				evt.setCancelled(event.isCancelled());
+                if (event.isCancelled()) {
+                    evt.setCancelled(true);
+                }
 			}
 			if (evt.getCause() == DamageCause.DROWNING) {
 				JetpackEvent event = new JetpackEvent(
 						((Player) evt.getEntity()), FlightTypes.DROWNING, null);
 				EasyJetpackAPI.getManager().onJetpackEvent(event);
-				evt.setCancelled(event.isCancelled());
+                if (event.isCancelled()) {
+                    evt.setCancelled(true);
+                }
 			}
 		}
 	}
@@ -71,7 +77,9 @@ public class JetpackListener implements Listener {
 							(Player) evt.getWhoClicked(), FlightTypes.ANVIL,
 							evt.getView().getItem(0));
 					EasyJetpackAPI.getManager().onJetpackEvent(event);
-					evt.setCancelled(event.isCancelled());
+                    if (event.isCancelled()) {
+                        evt.setCancelled(true);
+                    }
 				}
 			}
 		}
@@ -82,7 +90,9 @@ public class JetpackListener implements Listener {
 		JetpackEvent event = new JetpackEvent(evt.getPlayer(),
 				FlightTypes.INTERACT, null);
 		EasyJetpackAPI.getManager().onJetpackEvent(event);
-		evt.setCancelled(event.isCancelled());
+        if (event.isCancelled()) {
+            evt.setCancelled(true);
+        }
 	}
 
 	@EventHandler
@@ -92,12 +102,16 @@ public class JetpackListener implements Listener {
 				JetpackEvent event = new JetpackEvent((Player) evt.getEntity(),
 						FlightTypes.DAMAGED_BY_PLAYER, null);
 				EasyJetpackAPI.getManager().onJetpackEvent(event);
-				evt.setCancelled(event.isCancelled());
+                if (event.isCancelled()) {
+                    evt.setCancelled(true);
+                }
 			} else {
 				JetpackEvent event = new JetpackEvent((Player) evt.getEntity(),
 						FlightTypes.DAMAGED_BY_MOB, null);
 				EasyJetpackAPI.getManager().onJetpackEvent(event);
-				evt.setCancelled(event.isCancelled());
+                if (event.isCancelled()) {
+                    evt.setCancelled(true);
+                }
 			}
 		}
 	}

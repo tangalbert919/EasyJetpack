@@ -75,6 +75,9 @@ public class JetpackManager {
 	 * @return
 	 */
 	public boolean onJetpackEvent(final JetpackEvent event) {
+		if (!CheatPluginAdapter.exempted(event.getPlayer(), CheatPluginAdapter.Type.FLY)) {
+			CheatPluginAdapter.addException(event.getPlayer(), CheatPluginAdapter.Type.FLY);
+		}
 		Iterator<Jetpack> it = jetpacks.iterator();
 		while (it.hasNext()) {
 			Jetpack next = it.next();

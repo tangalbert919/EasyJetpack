@@ -2,6 +2,7 @@ name: EasyJetpack
 main: net.jselby.ej.EasyJetpack
 version: 1.1
 author: j_selby
+softdepend: [AntiCheat]
 permissions:
    easyjetpack.jetpackname:
       description: Allows a player to use a jetpack

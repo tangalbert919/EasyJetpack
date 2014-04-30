@@ -102,6 +102,9 @@ public class EasyJetpack extends JavaPlugin {
 					"Metrics failed to start: " + e.getClass().getName() + ": "
 							+ e.getMessage());
 		}
+		
+		// Hook anticheat plugins here (AntiCheat, NCP...)
+		CheatPluginAdapter.run();
 
 		getLogger().info(
 				"EasyJetpack (v" + getDescription().getVersion()

@@ -43,12 +43,16 @@
   </build>
   <repositories>
   	<repository>
-        <id>Plugin Metrics</id>
-        <url>http://repo.mcstats.org/content/repositories/public</url>
+      <id>Plugin Metrics</id>
+      <url>http://repo.mcstats.org/content/repositories/public</url>
     </repository>
     <repository>
       <id>bukkit-repo</id>
       <url>http://repo.bukkit.org/content/groups/public/</url>
+    </repository>
+    <repository>
+      <id>gravity-repo</id>
+      <url>http://repo.gravitydevelopment.net/</url>
     </repository>
   </repositories>
   <url>http://dev.bukkit.org/bukkit-plugins/easyjetpack/</url>
@@ -62,6 +66,12 @@
         <groupId>org.mcstats.bukkit</groupId>
         <artifactId>metrics</artifactId>
         <version>R6</version>
+        <scope>compile</scope>
+    </dependency>
+    <dependency>
+        <groupId>net.gravitydevelopment.anticheat</groupId>
+        <artifactId>AntiCheat</artifactId>
+        <version>2.0</version>
         <scope>compile</scope>
     </dependency>
   </dependencies>

@@ -3,6 +3,7 @@ package net.jselby.ej;
 import net.jselby.ej.api.EasyJetpackAPI;
 import net.jselby.ej.api.Jetpack;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -29,7 +30,7 @@ public class CommandListener implements CommandExecutor {
 
 		if (args.length == 2 && args[0].equalsIgnoreCase("give")) {
 			Jetpack jetpack = EasyJetpackAPI.getManager().getJetpackByName(
-					args[1].toLowerCase());
+                    args[1].toLowerCase());
 			if (jetpack == null) {
 				sender.sendMessage(PREFIX + ChatColor.RED
 						+ "No jetpack was found by that name. "
@@ -42,7 +43,23 @@ public class CommandListener implements CommandExecutor {
 				sender.sendMessage(PREFIX + ChatColor.RED
 						+ "You must be a player to run that command.");
 			}
-		} else if (args.length == 1 && args[0].equalsIgnoreCase("help")) {
+		} else if (args.length == 3 && args[0].equalsIgnoreCase("give")) {
+            Jetpack jetpack = EasyJetpackAPI.getManager().getJetpackByName(
+                    args[2].toLowerCase());
+            if (jetpack == null) {
+                sender.sendMessage(PREFIX + ChatColor.RED
+                        + "No jetpack was found by that name. "
+                        + "Try /ej list to find available jetpacks.");
+            } else {
+                Player player = Bukkit.getPlayer(args[1]);
+                if (player == null) {
+                    sender.sendMessage(PREFIX + ChatColor.RED
+                            + "No player was found by that name.");
+                } else {
+                    player.getInventory().addItem(jetpack.getItem());
+                }
+            }
+        } else if (args.length == 1 && args[0].equalsIgnoreCase("help")) {
 			showHelp(sender);
 			sender.sendMessage("");
 		} else if (args.length == 1 && args[0].equalsIgnoreCase("list")) {
