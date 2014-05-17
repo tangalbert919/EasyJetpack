@@ -21,6 +21,7 @@ import org.bukkit.inventory.ItemStack;
 public class JetpackListener implements Listener {
 	@EventHandler
 	public void onPlayerToggleCrouchEvent(PlayerToggleSneakEvent evt) {
+        EasyJetpackAPI.getManager().setCrouching(evt.getPlayer(), evt.isSneaking());
 		if (evt.isSneaking()) {
 			JetpackEvent event = new JetpackEvent(evt.getPlayer(),
 					FlightTypes.CROUCH, null);

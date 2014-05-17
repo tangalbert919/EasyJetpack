@@ -11,24 +11,26 @@ import net.jselby.ej.impl.CraftingRecipe;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 /**
  * This class manages Jetpacks, and calls the Jetpack events when they are
  * required. Plugins should register their custom jetpacks here.
- * 
+ *
  * @author James
- * 
+ *
  */
 public class JetpackManager {
 
 	private EasyJetpack plugin;
 	private ArrayList<Jetpack> jetpacks;
 	private HashMap<Runnable, Integer> runnables;
+    private ArrayList<String> crouchingArray;
 
 	/**
 	 * A internally used constructor to create a JetpackManager instance.
-	 * 
+	 *
 	 * @param plugin
 	 *            The main Jetpack plugin
 	 */
@@ -37,6 +39,7 @@ public class JetpackManager {
 
 		jetpacks = new ArrayList<Jetpack>();
 		runnables = new HashMap<Runnable, Integer>();
+        crouchingArray = new ArrayList<String>();
 
 		this.plugin.getServer().getPluginManager()
 				.registerEvents(new JetpackListener(), this.plugin);
@@ -44,7 +47,7 @@ public class JetpackManager {
 
 	/**
 	 * Registers a Jetpack. It can now be created
-	 * 
+	 *
 	 * @param jetpack
 	 *            The Jetpack to add
 	 */
@@ -58,7 +61,7 @@ public class JetpackManager {
 
 	/**
 	 * De-registers a Jetpack. Its custom events will no longer be invoked.
-	 * 
+	 *
 	 * @param jetpack
 	 *            The Jetpack to remove
 	 */
@@ -69,15 +72,12 @@ public class JetpackManager {
 	/**
 	 * Method called either internally or externally that passes the event onto
 	 * the Jetpack which the player is wearing
-	 * 
+	 *
 	 * @param event
 	 *            A JetpackEvent containing a player who triggered the event
 	 * @return
 	 */
 	public boolean onJetpackEvent(final JetpackEvent event) {
-		if (!CheatPluginAdapter.exempted(event.getPlayer(), CheatPluginAdapter.Type.FLY)) {
-			CheatPluginAdapter.addException(event.getPlayer(), CheatPluginAdapter.Type.FLY);
-		}
 		Iterator<Jetpack> it = jetpacks.iterator();
 		while (it.hasNext()) {
 			Jetpack next = it.next();
@@ -104,7 +104,7 @@ public class JetpackManager {
 					Runnable runnable = new Runnable() {
 						@Override
 						public void run() {
-							if (event.getPlayer().isSneaking()) {
+							if (isCrouching(event.getPlayer())) {
 								boolean success = onJetpackEvent(new JetpackEvent(
 										event.getPlayer(),
 										FlightTypes.CROUCH_CONSTANT,
@@ -137,9 +137,21 @@ public class JetpackManager {
 		return false;
 	}
 
-	/**
+    private boolean isCrouching(Player player) {
+        return crouchingArray.contains(player.getName());
+    }
+
+    public void setCrouching(Player player, boolean crouching) {
+        if (crouching) {
+            crouchingArray.add(player.getName());
+        } else {
+            crouchingArray.remove(player.getName());
+        }
+    }
+
+    /**
 	 * Finds a Jetpack by it's give name
-	 * 
+	 *
 	 * @param name
 	 *            The name of the Jetpack
 	 * @return A Jetpack, or null if one cannot be found
@@ -157,7 +169,7 @@ public class JetpackManager {
 
 	/**
 	 * Finds a Jetpack by it's class
-	 * 
+	 *
 	 * @param jetpackClass
 	 *            The class of the Jetpack
 	 * @return A Jetpack, or null if one cannot be found
@@ -176,7 +188,7 @@ public class JetpackManager {
 
 	/**
 	 * Obtains a array of all registered jetpacks
-	 * 
+	 *
 	 * @return A Jetpack array
 	 */
 	public Jetpack[] getJetpacks() {
