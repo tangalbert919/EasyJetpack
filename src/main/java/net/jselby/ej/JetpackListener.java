@@ -21,12 +21,12 @@ import org.bukkit.inventory.ItemStack;
 public class JetpackListener implements Listener {
 	@EventHandler
 	public void onPlayerToggleCrouchEvent(PlayerToggleSneakEvent evt) {
-        EasyJetpackAPI.getManager().setCrouching(evt.getPlayer(), evt.isSneaking());
+       // EasyJetpackAPI.getManager().setCrouching(evt.getPlayer(), evt.isSneaking());
 		if (evt.isSneaking()) {
 			JetpackEvent event = new JetpackEvent(evt.getPlayer(),
 					FlightTypes.CROUCH, null);
 			EasyJetpackAPI.getManager().onJetpackEvent(event);
-            if (!event.isCancelled()) {
+            if (event.isCancelled()) {
                 evt.setCancelled(true);
             }
 		}
@@ -40,7 +40,7 @@ public class JetpackListener implements Listener {
 				JetpackEvent event = new JetpackEvent(evt.getPlayer(),
 						FlightTypes.CROUCH, null);
 				EasyJetpackAPI.getManager().onJetpackEvent(event);
-                if (!event.isCancelled()) {
+                if (event.isCancelled()) {
                     evt.setCancelled(true);
                 }
 			}
