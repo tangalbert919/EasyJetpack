@@ -80,22 +80,19 @@ public class Utils {
 			return false;
 		}
 		try {
-			if (list.size() == list2.size()) {
-				Iterator<String> it = list.iterator();
-				int count = 0;
-				while (it.hasNext()) {
-					String next = it.next();
-					if (!list2.get(count).equalsIgnoreCase(next)) {
-						return false;
-					}
-					count++;
-				}
-				return true;
+		    Iterator<String> it = list.iterator();
+		    int count = 0;
+		    while (it.hasNext()) {
+			    String next = it.next();
+			    if (!list2.get(count).equalsIgnoreCase(next)) {
+			    	return false;
+			    }
+			    count++;
 			}
+			return true;
 		} catch (Exception e) {
 			return false;
 		}
-		return false;
 	}
 
 	public static void useFuel(Player player, boolean mustBeHolding,
