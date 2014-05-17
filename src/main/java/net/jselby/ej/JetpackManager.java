@@ -104,7 +104,7 @@ public class JetpackManager {
 					Runnable runnable = new Runnable() {
 						@Override
 						public void run() {
-							if (event.getPlayer().isSneaking()) {
+							if (isCrouching(event.getPlayer())) {
 								boolean success = onJetpackEvent(new JetpackEvent(
 										event.getPlayer(),
 										FlightTypes.CROUCH_CONSTANT,

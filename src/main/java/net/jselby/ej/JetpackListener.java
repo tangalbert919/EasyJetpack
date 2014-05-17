@@ -11,17 +11,16 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerToggleFlightEvent;
-import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 
 public class JetpackListener implements Listener {
 	@EventHandler
 	public void onPlayerToggleCrouchEvent(PlayerToggleSneakEvent evt) {
-       // EasyJetpackAPI.getManager().setCrouching(evt.getPlayer(), evt.isSneaking());
+        EasyJetpackAPI.getManager().setCrouching(evt.getPlayer(), evt.isSneaking());
 		if (evt.isSneaking()) {
 			JetpackEvent event = new JetpackEvent(evt.getPlayer(),
 					FlightTypes.CROUCH, null);
@@ -31,6 +30,21 @@ public class JetpackListener implements Listener {
             }
 		}
 	}
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        EasyJetpackAPI.getManager().setCrouching(event.getPlayer(), false);
+    }
+
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent event) {
+        EasyJetpackAPI.getManager().setCrouching(event.getEntity(), false);
+    }
+
+    @EventHandler
+     public void onPlayerKick(PlayerKickEvent event) {
+        EasyJetpackAPI.getManager().setCrouching(event.getPlayer(), false);
+    }
 
 	@EventHandler
 	public void onFlightToggleEvent(PlayerToggleFlightEvent evt) {
