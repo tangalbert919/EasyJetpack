@@ -24,8 +24,7 @@ public class JetpackListener implements Listener {
 		if (evt.isSneaking()) {
 			JetpackEvent event = new JetpackEvent(evt.getPlayer(),
 					FlightTypes.CROUCH, null);
-			EasyJetpackAPI.getManager().onJetpackEvent(event);
-            if (event.isCancelled()) {
+            if (EasyJetpackAPI.getManager().onJetpackEvent(event) || event.isCancelled()) {
                 evt.setCancelled(true);
             }
 		}
