@@ -8,6 +8,7 @@ import net.jselby.ej.api.JetpackEvent;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 /**
@@ -39,6 +40,9 @@ public class BurstJetpack extends Jetpack {
 
 	@Override
 	public void onFlyEvent(JetpackEvent event) {
+        ItemStack oldChestplate = event.getPlayer().getInventory().getChestplate();
+        oldChestplate.setDurability((short) 0);
+        event.getPlayer().getInventory().setChestplate(oldChestplate);
 		Vector dir = event.getPlayer().getLocation().getDirection();
 		double y = event.getPlayer().getVelocity().getY();
 		if (y < 0.3D) {
@@ -50,8 +54,8 @@ public class BurstJetpack extends Jetpack {
 		}
 		event.getPlayer().setVelocity(
 				Utils.addVector(event.getPlayer(), new Vector(
-						dir.getX() * 0.5D, y, dir.getZ() * 0.5D), 0.45, 0.6,
-						0.45));
+						dir.getX() * 0.5D, y, dir.getZ() * 0.5D), 0.7, 0.6,
+						0.7));
 
 		VisualCandy.jetpackEffect(event.getPlayer());
 	}
