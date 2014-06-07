@@ -104,7 +104,9 @@ public class EasyJetpack extends JavaPlugin {
 		}
 		
 		// Hook anticheat plugins here (AntiCheat, NCP...)
-		CheatPluginAdapter.run();
+        try {
+            CheatPluginAdapter.run();
+        } catch (Exception e) {}
 
 		getLogger().info(
 				"EasyJetpack (v" + getDescription().getVersion()
