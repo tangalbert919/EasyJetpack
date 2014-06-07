@@ -111,7 +111,7 @@ public class JetpackManager {
                         }
                     };
                     int id = Bukkit.getScheduler().scheduleSyncRepeatingTask(
-                            plugin, runnable, 2, 2);
+                            plugin, runnable, 1, 1);
                     runnables.put(runnable, id);
                     return true;
                 } else {
