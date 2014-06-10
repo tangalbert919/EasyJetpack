@@ -322,7 +322,7 @@ public class Utils {
 
     public static Vector addVector(Player p, Vector v, double maxX, double maxY, double maxZ) {
         Vector curr = p.getVelocity();
-        Vector added = curr.add(v).normalize();
+        Vector added = curr.add(v);
         if (added.getX() > maxX) {
             added.setX(maxX);
         }
@@ -338,6 +338,7 @@ public class Utils {
         if (added.getZ() < -maxZ) {
             added.setZ(-maxZ);
         }
+        added = added.normalize();
         return added;
     }
 }

@@ -52,7 +52,7 @@ public class BurstJetpack extends Jetpack {
         }
         event.getPlayer().setVelocity(
                 Utils.addVector(event.getPlayer(), new Vector(
-                                dir.getX() * 0.25D, y, dir.getZ() * 0.25D), 0.7, 0.6,
+                                dir.getX() * 0.5D, y, dir.getZ() * 0.5D), 0.7, 0.6,
                         0.7));
 
         VisualCandy.jetpackEffect(event.getPlayer());
