@@ -38,6 +38,7 @@
                                     <exclude>org.bukkit:*</exclude>
                                     <exclude>*:AntiCheat</exclude>
                                     <exclude>*:ProtocolLib</exclude>
+                                    <exclude>*:BukkitExecutors</exclude>
                                 </excludes>
                             </artifactSet>
                             <minimizeJar>true</minimizeJar>
