@@ -23,7 +23,6 @@ public class CommandListener implements CommandExecutor {
         }
         if (args.length == 0) {
             showHelp(sender);
-            sender.sendMessage("");
             return true;
         }
 
@@ -60,7 +59,6 @@ public class CommandListener implements CommandExecutor {
             }
         } else if (args.length == 1 && args[0].equalsIgnoreCase("help")) {
             showHelp(sender);
-            sender.sendMessage("");
         } else if (args.length == 1 && args[0].equalsIgnoreCase("list")) {
             Jetpack[] jetpacks = EasyJetpackAPI.getManager().getJetpacks();
             sender.sendMessage(PREFIX + "Jetpacks:");
@@ -69,7 +67,6 @@ public class CommandListener implements CommandExecutor {
                 sender.sendMessage(PREFIX + "         Give name: "
                         + jetpack.getGiveName());
             }
-            sender.sendMessage("");
         } else if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
             EasyJetpack.getInstance().reloadConfig();
             sender.sendMessage(PREFIX + ChatColor.GREEN
@@ -88,7 +85,7 @@ public class CommandListener implements CommandExecutor {
      */
     private void showHelp(CommandSender sender) {
         sender.sendMessage(PREFIX + "EasyJetpack commands:");
-        sender.sendMessage(PREFIX + "   /ej give [jetpack name]");
+        sender.sendMessage(PREFIX + "   /ej give <player name> [jetpack name]");
         sender.sendMessage(PREFIX + "         Gives a jetpack by it's name.");
         sender.sendMessage(PREFIX + "   /ej list");
         sender.sendMessage(PREFIX + "         Lists available jetpacks.");

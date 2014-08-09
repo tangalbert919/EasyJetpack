@@ -72,17 +72,22 @@ public class JetpackManager {
      */
     public boolean onJetpackEvent(final JetpackEvent event) {
         for (Jetpack next : jetpacks) {
+            // If this is a anvil event, disable it.
             if (event.getType() == FlightTypes.ANVIL
                     && Utils.isItemStackEqual(next.getItem(), event.getItem())
                     && next.isRepairingDisabled()) {
                 event.setCancelled(true);
                 return false;
             }
+
+            // Check the movement types to see if they match up.
             if ((next.getMovementType() == event.getType() || (next
                     .getMovementType() == FlightTypes.CROUCH_CONSTANT && event
                     .getType() == FlightTypes.CROUCH))
                     && Utils.isItemStackEqual(next.getItem(),
                     Utils.getSlot(event.getPlayer(), next.getSlot()))) {
+
+                // If the player doesn't have permission to use the jetpack, don't let them.
                 if (!event.getPlayer().hasPermission(next.getPermission())) {
                     event.getPlayer()
                             .sendMessage(
@@ -90,6 +95,8 @@ public class JetpackManager {
                                             + "You do not have permission to use this jetpack.");
                     return false;
                 }
+
+                // If this was triggered via a constant crouch event, call the normal event.
                 if (next.getMovementType() == FlightTypes.CROUCH_CONSTANT
                         && event.getType() == FlightTypes.CROUCH) {
                     Runnable runnable = new Runnable() {
@@ -110,6 +117,7 @@ public class JetpackManager {
                             }
                         }
                     };
+
                     int id = Bukkit.getScheduler().scheduleSyncRepeatingTask(
                             plugin, runnable, 1, 1);
                     runnables.put(runnable, id);
