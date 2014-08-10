@@ -177,4 +177,13 @@ public abstract class Jetpack {
     public static enum Slot {
         HELMET, CHESTPLATE, LEGGINGS, BOOTS, HELD_ITEM
     }
+
+    /**
+     * Keep calling this jetpack until it runs out of fuel.
+     *
+     * @return Should this jetpack be placed on a timer?
+     */
+    public boolean keepCalling() {
+        return false;
+    }
 }

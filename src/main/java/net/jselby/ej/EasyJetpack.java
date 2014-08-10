@@ -1,10 +1,7 @@
 package net.jselby.ej;
 
 import net.jselby.ej.api.EasyJetpackAPI;
-import net.jselby.ej.impl.BurstJetpack;
-import net.jselby.ej.impl.Fallboots;
-import net.jselby.ej.impl.TeleportJetpack;
-import net.jselby.ej.impl.TraditionalJetpack;
+import net.jselby.ej.impl.*;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -66,6 +63,10 @@ public class EasyJetpack extends JavaPlugin {
             manager.addJetpack(new BurstJetpack());
         if (getConfig().getBoolean("jetpacks.teleport.enabled", true))
             manager.addJetpack(new TeleportJetpack());
+        if (getConfig().getBoolean("jetpacks.hover.enabled", true)) {
+            manager.addJetpack(new HoverJetpack());
+            manager.addJetpack(new HoverJetpackController());
+        }
         if (getConfig().getBoolean("jetpacks.boots.enabled", true))
             manager.addJetpack(new Fallboots());
 

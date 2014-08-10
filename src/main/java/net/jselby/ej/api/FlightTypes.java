@@ -44,5 +44,9 @@ public enum FlightTypes {
     /**
      * Called when a player completes a Anvil transaction
      */
-    ANVIL
+    ANVIL,
+    /**
+     * Called for jetpacks requiring a timer
+     */
+    TIMER
 }

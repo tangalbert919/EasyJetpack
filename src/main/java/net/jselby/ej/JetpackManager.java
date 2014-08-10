@@ -22,6 +22,7 @@ public class JetpackManager {
 
     private EasyJetpack plugin;
     private ArrayList<Jetpack> jetpacks;
+    private ArrayList<Jetpack> jetpacksTimered;
     private HashMap<Runnable, Integer> runnables;
     private ArrayList<String> crouchingArray;
 
@@ -36,6 +37,7 @@ public class JetpackManager {
         jetpacks = new ArrayList<Jetpack>();
         runnables = new HashMap<Runnable, Integer>();
         crouchingArray = new ArrayList<String>();
+        jetpacksTimered = new ArrayList<Jetpack>();
 
         this.plugin.getServer().getPluginManager()
                 .registerEvents(new JetpackListener(), this.plugin);
@@ -71,7 +73,7 @@ public class JetpackManager {
      * @return Whether the event succeeded
      */
     public boolean onJetpackEvent(final JetpackEvent event) {
-        for (Jetpack next : jetpacks) {
+        for (final Jetpack next : jetpacks) {
             // If this is a anvil event, disable it.
             if (event.getType() == FlightTypes.ANVIL
                     && Utils.isItemStackEqual(next.getItem(), event.getItem())
@@ -81,9 +83,9 @@ public class JetpackManager {
             }
 
             // Check the movement types to see if they match up.
-            if ((next.getMovementType() == event.getType() || (next
-                    .getMovementType() == FlightTypes.CROUCH_CONSTANT && event
-                    .getType() == FlightTypes.CROUCH))
+            if ((next.getMovementType() == event.getType() ||
+                    (next.getMovementType() == FlightTypes.CROUCH_CONSTANT && event.getType() == FlightTypes.CROUCH) ||
+                    (next.keepCalling() && event.getType() == FlightTypes.TIMER))
                     && Utils.isItemStackEqual(next.getItem(),
                     Utils.getSlot(event.getPlayer(), next.getSlot()))) {
 
@@ -98,22 +100,34 @@ public class JetpackManager {
 
                 // If this was triggered via a constant crouch event, call the normal event.
                 if (next.getMovementType() == FlightTypes.CROUCH_CONSTANT
-                        && event.getType() == FlightTypes.CROUCH) {
+                        && event.getType() == FlightTypes.CROUCH && !jetpacksTimered.contains(next)) {
+                    if (next.keepCalling()) {
+                        jetpacksTimered.add(next);
+                    }
+
                     Runnable runnable = new Runnable() {
                         @Override
                         public void run() {
-                            if (isCrouching(event.getPlayer())) {
+                            if (isCrouching(event.getPlayer()) || next.keepCalling()) {
                                 boolean success = onJetpackEvent(new JetpackEvent(
                                         event.getPlayer(),
-                                        FlightTypes.CROUCH_CONSTANT,
-                                        event.getItem()));
+                                        isCrouching(event.getPlayer()) ?
+                                                FlightTypes.CROUCH_CONSTANT : FlightTypes.TIMER,
+                                        event.getItem(), null));
                                 if (!success) {
                                     Bukkit.getScheduler().cancelTask(
                                             runnables.get(this));
+                                    if (jetpacksTimered.contains(next)) {
+                                        jetpacksTimered.remove(next);
+                                    }
                                 }
                             } else {
                                 Bukkit.getScheduler().cancelTask(
                                         runnables.get(this));
+
+                                if (jetpacksTimered.contains(next)) {
+                                    jetpacksTimered.remove(next);
+                                }
                             }
                         }
                     };
@@ -136,7 +150,7 @@ public class JetpackManager {
         return false;
     }
 
-    private boolean isCrouching(Player player) {
+    public boolean isCrouching(Player player) {
         return crouchingArray.contains(player.getName());
     }
 

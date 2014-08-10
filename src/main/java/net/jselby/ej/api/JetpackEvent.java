@@ -3,6 +3,7 @@ package net.jselby.ej.api;
 import net.jselby.ej.Utils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
+import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -15,6 +16,7 @@ public class JetpackEvent implements Cancellable {
     private FlightTypes type;
     private boolean cancelled;
     private ItemStack item;
+    private Event baseEvent;
 
     /**
      * Creates a jetpack event, assuming that the provided player should be
@@ -23,10 +25,11 @@ public class JetpackEvent implements Cancellable {
      * @param player The player in question
      * @param type   The type of event
      */
-    public JetpackEvent(Player player, FlightTypes type, ItemStack item) {
+    public JetpackEvent(Player player, FlightTypes type, ItemStack item, Event baseEvent) {
         this.player = player;
         this.type = type;
         this.item = item;
+        this.baseEvent = baseEvent;
     }
 
     /**
@@ -77,5 +80,17 @@ public class JetpackEvent implements Cancellable {
      */
     public ItemStack getItem() {
         return item;
+    }
+
+    @Override
+    public String toString() {
+        return "JetpackEvent{Item:" + getItem() +
+                ", Cancelled:" + isCancelled() +
+                ", FlightType:" + getType() +
+                ",Player:" + getPlayer() + "}";
+    }
+
+    public Event getBaseEvent() {
+        return baseEvent;
     }
 }

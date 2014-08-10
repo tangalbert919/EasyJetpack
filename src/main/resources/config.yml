@@ -44,6 +44,17 @@ jetpacks:
         craftable: true
         # Is the Jetpack repairable?
         antianvil: true
+    hover:
+        # Is this Jetpack enabled?
+        enabled: true
+        # The name of the Material used.
+        # These names can be found at
+        # http://jd.bukkit.org/rb/apidocs/org/bukkit/Material.html
+        material: CHAINMAIL_CHESTPLATE
+        # Is the Jetpack craftable?
+        craftable: true
+        # Is the Jetpack repairable?
+        antianvil: true
     boots:
         # Are these fallboots enabled?
         enabled: true

@@ -22,7 +22,7 @@ public class JetpackListener implements Listener {
         EasyJetpackAPI.getManager().setCrouching(evt.getPlayer(), evt.isSneaking());
         if (evt.isSneaking()) {
             JetpackEvent event = new JetpackEvent(evt.getPlayer(),
-                    FlightTypes.CROUCH, null);
+                    FlightTypes.CROUCH, null, evt);
             if (EasyJetpackAPI.getManager().onJetpackEvent(event) || event.isCancelled()) {
                 evt.setCancelled(true);
             }
@@ -50,7 +50,7 @@ public class JetpackListener implements Listener {
                 && EasyJetpack.getInstance().haveAllowedFlying(evt.getPlayer())) {
             if (!evt.isFlying()) {
                 JetpackEvent event = new JetpackEvent(evt.getPlayer(),
-                        FlightTypes.CROUCH, null);
+                        FlightTypes.CROUCH, null, evt);
                 EasyJetpackAPI.getManager().onJetpackEvent(event);
                 if (event.isCancelled()) {
                     evt.setCancelled(true);
@@ -70,7 +70,7 @@ public class JetpackListener implements Listener {
                     return;
                 }
                 JetpackEvent event = new JetpackEvent(
-                        ((Player) evt.getEntity()), FlightTypes.FALLING, null);
+                        ((Player) evt.getEntity()), FlightTypes.FALLING, null, evt);
                 EasyJetpackAPI.getManager().onJetpackEvent(event);
                 if (event.isCancelled()) {
                     evt.setCancelled(true);
@@ -78,7 +78,7 @@ public class JetpackListener implements Listener {
             }
             if (evt.getCause() == DamageCause.DROWNING) {
                 JetpackEvent event = new JetpackEvent(
-                        ((Player) evt.getEntity()), FlightTypes.DROWNING, null);
+                        ((Player) evt.getEntity()), FlightTypes.DROWNING, null, evt);
                 EasyJetpackAPI.getManager().onJetpackEvent(event);
                 if (event.isCancelled()) {
                     evt.setCancelled(true);
@@ -97,7 +97,7 @@ public class JetpackListener implements Listener {
                         evt.getView().getItem(1))) {
                     JetpackEvent event = new JetpackEvent(
                             (Player) evt.getWhoClicked(), FlightTypes.ANVIL,
-                            evt.getView().getItem(0));
+                            evt.getView().getItem(0), evt);
                     EasyJetpackAPI.getManager().onJetpackEvent(event);
                     if (event.isCancelled()) {
                         evt.setCancelled(true);
@@ -110,7 +110,7 @@ public class JetpackListener implements Listener {
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent evt) {
         JetpackEvent event = new JetpackEvent(evt.getPlayer(),
-                FlightTypes.INTERACT, null);
+                FlightTypes.INTERACT, null, evt);
         EasyJetpackAPI.getManager().onJetpackEvent(event);
         if (event.isCancelled()) {
             evt.setCancelled(true);
@@ -122,14 +122,14 @@ public class JetpackListener implements Listener {
         if (evt.getEntity() instanceof Player) {
             if (evt.getDamager() instanceof Player) {
                 JetpackEvent event = new JetpackEvent((Player) evt.getEntity(),
-                        FlightTypes.DAMAGED_BY_PLAYER, null);
+                        FlightTypes.DAMAGED_BY_PLAYER, null, evt);
                 EasyJetpackAPI.getManager().onJetpackEvent(event);
                 if (event.isCancelled()) {
                     evt.setCancelled(true);
                 }
             } else {
                 JetpackEvent event = new JetpackEvent((Player) evt.getEntity(),
-                        FlightTypes.DAMAGED_BY_MOB, null);
+                        FlightTypes.DAMAGED_BY_MOB, null, evt);
                 EasyJetpackAPI.getManager().onJetpackEvent(event);
                 if (event.isCancelled()) {
                     evt.setCancelled(true);
