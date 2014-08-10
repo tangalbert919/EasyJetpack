@@ -62,12 +62,7 @@ public class TeleportJetpack extends Jetpack {
     @Override
     public boolean onFuelCheckEvent(JetpackEvent event) {
         if (getConfig().getBoolean("fuel.enabled", true)) {
-            boolean containsCoal = event
-                    .getPlayer()
-                    .getInventory()
-                    .contains(
-                            Material.getMaterial(getConfig().getString(
-                                    "fuel.material", "COAL")));
+            boolean containsCoal = Utils.playerHasFuel(event.getPlayer());
             if (!containsCoal)
                 event.getPlayer().sendMessage(
                         ChatColor.RED + "You don't have enough fuel!");

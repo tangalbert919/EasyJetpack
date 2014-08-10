@@ -66,3 +66,7 @@ fuel:
     # These names can be found at
     # http://jd.bukkit.org/rb/apidocs/org/bukkit/Material.html
     material: COAL
+    # Durability of the Material (-1 for any), for example:
+    # to match coal and charcoal, use -1. To match coal only, 0, and
+    # charcoal, 1.
+    durability: -1

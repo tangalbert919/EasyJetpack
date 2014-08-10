@@ -97,6 +97,10 @@ public class Utils {
         Material fuel = Material.getMaterial(EasyJetpack.getInstance()
                 .getConfig()
                 .getString("fuel.material", "COAL"));
+        int durability = EasyJetpack.getInstance()
+                .getConfig()
+                .getInt("fuel.durability", -1);
+
         PlayerInventory inventory = player.getInventory();
 
         boolean isBurning = false;
@@ -108,7 +112,8 @@ public class Utils {
             // They need to be holding the fuel for it to burn;
             // check if they are holding it.
             foundFuel = inventory.getItemInHand();
-            if (foundFuel != null && foundFuel.getType() == fuel) {
+            if (foundFuel != null && foundFuel.getType() == fuel
+                    && (durability == -1 || foundFuel.getDurability() == durability)) {
                 // This is a sample of fuel, so we can now toy with it.
                 // Check its metadata for the "% left" name
                 isBurning = (foundFuel.hasItemMeta() && foundFuel.getItemMeta().hasLore() &&
@@ -120,23 +125,38 @@ public class Utils {
             }
         } else {
             // Check for burning fuel everywhere.
+            ItemStack normalFuel = null;
+            int normalFuelIndex = -1;
+
             for (int i = 0; i < inventory.getSize(); i++) {
                 ItemStack checkItem = inventory.getItem(i);
                 // Check this item for metadata.
-                if (checkItem != null && checkItem.hasItemMeta()
+                if (checkItem != null && checkItem.getType() == fuel
+                        && checkItem.hasItemMeta()
                         && checkItem.getItemMeta().hasLore()
-                        && checkItem.getItemMeta().getLore().get(0).contains("% left")) {
+                        && checkItem.getItemMeta().getLore().get(0).contains("% left")
+                        && (durability == -1 || checkItem.getDurability() == durability)) {
                     foundFuel = checkItem;
                     fuelSlot = i;
                     isBurning = true;
                     break;
+                } else if (normalFuel == null && checkItem != null && checkItem.getType() == fuel
+                        && (durability == -1 || checkItem.getDurability() == durability)) {
+                    normalFuel = checkItem;
+                    normalFuelIndex = i;
                 }
             }
 
             if (foundFuel == null) {
                 // Looks like we didn't find anything. Search for normal fuel.
-                fuelSlot = inventory.first(fuel);
-                foundFuel = inventory.getItem(fuelSlot);
+
+                if (normalFuel == null) {
+                    // This shouldn't happen...
+                    return false;
+                }
+
+                fuelSlot = normalFuelIndex;
+                foundFuel = normalFuel;
             }
         }
 
@@ -154,9 +174,7 @@ public class Utils {
             player.getInventory().remove(foundFuel);
 
             // Give us a instance to modify.
-            burningFuel = new ItemStack(Material.getMaterial(EasyJetpack
-                    .getInstance().getConfig()
-                    .getString("fuel.material", "COAL")), 1);
+            burningFuel = new ItemStack(fuel, 1, foundFuel.getDurability());
             spawnBurningFuel = true;
         } else {
             // We should modify this instance instead.
@@ -210,10 +228,8 @@ public class Utils {
 
         if (fuelToGiveBack > 0) {
             player.getInventory().addItem(
-                    new ItemStack(Material.getMaterial(EasyJetpack
-                            .getInstance().getConfig()
-                            .getString("fuel.material", "COAL")),
-                            fuelToGiveBack));
+                    new ItemStack(fuel,
+                            fuelToGiveBack, foundFuel.getDurability()));
         }
 
         return true;
@@ -228,23 +244,38 @@ public class Utils {
     public static void shuffleCoal(Player player, boolean mustBeHolding) {
         Material fuelMaterial = Material.getMaterial(EasyJetpack.getInstance().getConfig()
                 .getString("fuel.material", "COAL"));
+        int durability = EasyJetpack.getInstance()
+                .getConfig()
+                .getInt("fuel.durability", -1);
 
         // First, make sure they are holding fuel.
         if (player.getInventory().contains(fuelMaterial)) {
-            int position = player.getInventory().first(fuelMaterial);
-            ItemStack stack = player.getInventory().getItem(position);
-            player.getInventory().removeItem(stack);
-
-            if (mustBeHolding) {
-                player.setItemInHand(stack);
-            } else {
-                player.getInventory().addItem(stack);
+            int position = -1;
+            for (int i = 0; i < player.getInventory().getSize(); i++) {
+                ItemStack test = player.getInventory().getItem(i);
+                if (test != null && test.getType() == fuelMaterial
+                        && (durability == -1 || test.getDurability() == durability)) {
+                    position = i;
+                }
             }
-        } else {
-            player.sendMessage(ChatColor.RED
-                    + "You have run out of "
-                    + fuelMaterial.name().toLowerCase() + "!");
+
+            if (position != -1) {
+                ItemStack stack = player.getInventory().getItem(position);
+                player.getInventory().removeItem(stack);
+
+                if (mustBeHolding) {
+                    player.setItemInHand(stack);
+                } else {
+                    player.getInventory().addItem(stack);
+                }
+
+                return;
+            }
         }
+
+        player.sendMessage(ChatColor.RED
+                + "You have run out of "
+                + fuelMaterial.name().toLowerCase() + "!");
     }
 
     /**
@@ -352,5 +383,29 @@ public class Utils {
         }
         added = added.normalize();
         return added;
+    }
+
+    /**
+     * Checks if a player currently has fuel in their inventory. This respects
+     * durability, if it was set.
+     *
+     * @param player The player to search
+     * @return If fuel was found.
+     */
+    public static boolean playerHasFuel(Player player) {
+        Material fuelMaterial = Material.getMaterial(EasyJetpack.getInstance().getConfig()
+                .getString("fuel.material", "COAL"));
+        int durability = EasyJetpack.getInstance()
+                .getConfig()
+                .getInt("fuel.durability", -1);
+
+        for (int i = 0; i < player.getInventory().getSize(); i++) {
+            ItemStack test = player.getInventory().getItem(i);
+            if (test != null && test.getType() == fuelMaterial &&
+                    (durability == -1 ||  test.getDurability() == durability)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
