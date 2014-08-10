@@ -152,7 +152,7 @@ public class HoverJetpack extends Jetpack {
         recipe.setSlot(2, Material.REDSTONE);
         recipe.setSlot(5, Material.REDSTONE);
         recipe.setSlot(8, Material.REDSTONE);
-        return null;
+        return recipe;
     }
 
     @Override
