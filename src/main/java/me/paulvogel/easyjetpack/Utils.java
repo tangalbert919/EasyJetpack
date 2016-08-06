@@ -1,6 +1,6 @@
-package net.jselby.ej;
+package me.paulvogel.easyjetpack;
 
-import net.jselby.ej.api.Jetpack.Slot;
+import me.paulvogel.easyjetpack.api.Jetpack.Slot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

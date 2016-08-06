@@ -1,5 +1,6 @@
-package net.jselby.ej;
+package me.paulvogel.easyjetpack;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -25,9 +26,7 @@ public class VisualCandy {
      */
     @SuppressWarnings("deprecation")
     public static void playEffect(Effect e, Location l, int num) {
-        for (int i = 0; i < EasyJetpack.getInstance().getServer()
-                .getOnlinePlayers().length; i++)
-            EasyJetpack.getInstance().getServer().getOnlinePlayers()[i]
-                    .playEffect(l, e, num);
+        for (final Player player : Bukkit.getOnlinePlayers())
+            player.playEffect(l, e, num);
     }
 }

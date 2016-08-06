@@ -1,8 +1,8 @@
-package net.jselby.ej;
+package me.paulvogel.easyjetpack;
 
-import net.jselby.ej.api.EasyJetpackAPI;
-import net.jselby.ej.api.FlightTypes;
-import net.jselby.ej.api.JetpackEvent;
+import me.paulvogel.easyjetpack.api.EasyJetpackAPI;
+import me.paulvogel.easyjetpack.api.FlightTypes;
+import me.paulvogel.easyjetpack.api.JetpackEvent;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -64,7 +64,7 @@ public class JetpackListener implements Listener {
         if (evt.getEntity() instanceof Player) {
             if (evt.getCause() == DamageCause.FALL) {
                 ItemStack chestplate = ((Player) evt.getEntity()).getInventory().getChestplate();
-                if (((Player) evt.getEntity()).hasPermission("easyjetpack.nofall")
+                if (evt.getEntity().hasPermission("easyjetpack.nofall")
                         && EasyJetpackAPI.getManager().isJetpack(chestplate)) {
                     evt.setCancelled(true);
                     return;

@@ -1,6 +1,6 @@
-package net.jselby.ej.api;
+package me.paulvogel.easyjetpack.api;
 
-import net.jselby.ej.JetpackManager;
+import me.paulvogel.easyjetpack.JetpackManager;
 
 public class EasyJetpackAPI {
     private static JetpackManager mgr = null;

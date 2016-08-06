@@ -1,4 +1,4 @@
-package net.jselby.ej.impl;
+package me.paulvogel.easyjetpack.impl;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -11,10 +11,10 @@ import org.bukkit.inventory.ShapedRecipe;
  * @author James
  */
 public class CraftingRecipe {
-    private Material[] materials;
-    private ItemStack result;
     private static final char[] chars = new char[]{'A', 'B', 'C', 'D', 'E',
             'F', 'G', 'H', 'I'};
+    private Material[] materials;
+    private ItemStack result;
 
     public CraftingRecipe(ItemStack result) {
         materials = new Material[3 * 3];

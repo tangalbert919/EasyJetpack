@@ -1,30 +1,30 @@
-package net.jselby.ej.impl;
+package me.paulvogel.easyjetpack.impl;
 
-import net.jselby.ej.Utils;
-import net.jselby.ej.VisualCandy;
-import net.jselby.ej.api.EasyJetpackAPI;
-import net.jselby.ej.api.FlightTypes;
-import net.jselby.ej.api.Jetpack;
-import net.jselby.ej.api.JetpackEvent;
+import me.paulvogel.easyjetpack.Utils;
+import me.paulvogel.easyjetpack.VisualCandy;
+import me.paulvogel.easyjetpack.api.EasyJetpackAPI;
+import me.paulvogel.easyjetpack.api.FlightTypes;
+import me.paulvogel.easyjetpack.api.Jetpack;
+import me.paulvogel.easyjetpack.api.JetpackEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.util.Vector;
 
 /**
  * A hovering jetpack - similar to the burst one, but gives
- * you alot more control.
+ * you a lot more control.
  *
  * @author j_selby
  */
 public class HoverJetpack extends Jetpack {
     @Override
     public String getName() {
-        return ChatColor.RESET + "" + ChatColor.BLUE + "Hover Jetpack";
+        return ChatColor.RESET + "" + ChatColor.BLUE + "Rocket Jetpack";
     }
 
     @Override
     public String getGiveName() {
-        return "hover";
+        return "rocket";
     }
 
     @Override
@@ -41,7 +41,7 @@ public class HoverJetpack extends Jetpack {
     @Override
     public Material getMaterial() {
         return Material.getMaterial(getConfig().getString(
-                "jetpacks.teleport.material", "CHAINMAIL_CHESTPLATE"));
+                "jetpacks.rocket.material", "CHAINMAIL_CHESTPLATE"));
     }
 
     @Override
@@ -72,11 +72,11 @@ public class HoverJetpack extends Jetpack {
                 // They are!
                 if (HoverJetpackController.playersToTrigger
                         .get(event.getPlayer().getName())) {
-                    // Rightclick
+                    // Right click
                     verticalSpeed = 0.1;
                     y = -0.4;
                 } else {
-                    // Leftclick
+                    // Left click
                     multiplier = 0.5D;
                     horSpeed = 0.4;
                 }
@@ -105,7 +105,8 @@ public class HoverJetpack extends Jetpack {
         }
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public boolean onFuelCheckEvent(JetpackEvent event) {
         // Make sure they aren't on the ground, if this is a timer event.
         if (event.getType() == FlightTypes.TIMER && event.getPlayer().isOnGround()) {
@@ -137,7 +138,7 @@ public class HoverJetpack extends Jetpack {
 
     @Override
     public CraftingRecipe getCraftingRecipe() {
-        if (!getConfig().getBoolean("jetpacks.hover.craftable", true)) {
+        if (!getConfig().getBoolean("jetpacks.rocket.craftable", true)) {
             return null;
         }
         CraftingRecipe recipe = new CraftingRecipe(getItem());

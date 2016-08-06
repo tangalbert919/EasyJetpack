@@ -1,6 +1,6 @@
-package net.jselby.ej.api;
+package me.paulvogel.easyjetpack.api;
 
-import net.jselby.ej.Utils;
+import me.paulvogel.easyjetpack.Utils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;

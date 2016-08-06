@@ -1,16 +1,27 @@
-package net.jselby.ej;
+package me.paulvogel.easyjetpack;
 
-import net.jselby.ej.api.EasyJetpackAPI;
-import net.jselby.ej.impl.*;
+import java.io.File;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.mcstats.Metrics;
-import org.mcstats.Metrics.Graph;
-import org.mcstats.Metrics.Plotter;
 
-import java.io.File;
-import java.io.IOException;
+import darknesgaming.jetpacks.CraftableLavaBucket;
+import darknesgaming.jetpacks.EntryJetpack;
+import darknesgaming.jetpacks.InfinityJetpack;
+import darknesgaming.jetpacks.InfinityRocketPack;
+import darknesgaming.jetpacks.RocketBoots;
+import darknesgaming.jetpacks.SecretItem1;
+import darknesgaming.jetpacks.SecretItem2;
+import darknesgaming.jetpacks.SecretItem3;
+import me.paulvogel.easyjetpack.api.EasyJetpackAPI;
+import me.paulvogel.easyjetpack.impl.BurstJetpack;
+import me.paulvogel.easyjetpack.impl.Fallboots;
+import me.paulvogel.easyjetpack.impl.HoverJetpack;
+import me.paulvogel.easyjetpack.impl.HoverJetpackController;
+import me.paulvogel.easyjetpack.impl.TeleportJetpack;
+import me.paulvogel.easyjetpack.impl.TraditionalJetpack;
+import reditto.jetpacks.SlimePack;
 
 /**
  * The main EasyJetpack class. This registers the default Jetpacks, as well as
@@ -20,6 +31,15 @@ import java.io.IOException;
  */
 public class EasyJetpack extends JavaPlugin {
     private static EasyJetpack instance;
+
+    /**
+     * Obtains a instance of the plugin
+     *
+     * @return A EasyJetpack instance
+     */
+    public static EasyJetpack getInstance() {
+        return instance;
+    }
 
     @Override
     public void onEnable() {
@@ -43,10 +63,8 @@ public class EasyJetpack extends JavaPlugin {
             getLogger().warning("allow-flight is set to false in the");
             getLogger().warning("server.properties configuration file!");
             getLogger().warning("This will mean that players will be kicked");
-            getLogger().warning(
-                    "when using Jetpacks for a extended time period");
-            getLogger().warning(
-                    "Consider enabling allow-flight to prevent this");
+            getLogger().warning("when using Jetpacks for a extended time period");
+            getLogger().warning("Consider enabling allow-flight to prevent this");
             getLogger().warning("==========");
         }
 
@@ -63,47 +81,40 @@ public class EasyJetpack extends JavaPlugin {
             manager.addJetpack(new BurstJetpack());
         if (getConfig().getBoolean("jetpacks.teleport.enabled", true))
             manager.addJetpack(new TeleportJetpack());
-        if (getConfig().getBoolean("jetpacks.hover.enabled", true)) {
+        if (getConfig().getBoolean("jetpacks.rocket.enabled", true)) {
             manager.addJetpack(new HoverJetpack());
             manager.addJetpack(new HoverJetpackController());
         }
         if (getConfig().getBoolean("jetpacks.boots.enabled", true))
             manager.addJetpack(new Fallboots());
+        // Everything created by DarknesGaming, leader of the Infinity Laboratories
+        if (getConfig().getBoolean("jetpacks.entry.enabled", true))
+        	manager.addJetpack(new EntryJetpack());
+        if (getConfig().getBoolean("jetpacks.secretitem1.enabled", true))
+        	manager.addJetpack(new SecretItem1());
+        if (getConfig().getBoolean("jetpacks.infinity.enabled", true))
+        	manager.addJetpack(new InfinityJetpack());
+        if (getConfig().getBoolean("jetpacks.secretitem2.enabled", true))
+        	manager.addJetpack(new SecretItem2());
+        if (getConfig().getBoolean("jetpacks.lavabucket.enabled", true))
+        	manager.addJetpack(new CraftableLavaBucket());
+        if (getConfig().getBoolean("jetpacks.secretitem3.enabled", true))
+        	manager.addJetpack(new SecretItem3());
+        if (getConfig().getBoolean("jetpacks.infinitypack.enabled", true))
+        	manager.addJetpack(new InfinityRocketPack());
+        if (getConfig().getBoolean("jetpacks.slimepack.enabled", true))
+        	manager.addJetpack(new SlimePack());
+        if (getConfig().getBoolean("jetpacks.rocketboots.enabled", true))
+        	manager.addJetpack(new RocketBoots());
+        
+        // Everything created by other companies.
 
         // Make the API ready for use
         new EasyJetpackAPI(manager);
 
         // Load Metrics
-        try {
-            Metrics metrics = new Metrics(this);
-            Graph graph = metrics.createGraph("Jetpack count");
-            for (int i = 0; i <= 10; i++) {
-                final int count = i;
-                graph.addPlotter(new Plotter("" + count) {
-                    @Override
-                    public int getValue() {
-                        if (EasyJetpackAPI.getManager().getJetpacks().length == count) {
-                            return 1;
-                        }
-                        return 0;
-                    }
-                });
-            }
-            graph.addPlotter(new Plotter("More then 10") {
-                @Override
-                public int getValue() {
-                    if (EasyJetpackAPI.getManager().getJetpacks().length > 10) {
-                        return 1;
-                    }
-                    return 0;
-                }
-            });
-            metrics.start();
-        } catch (IOException e) {
-            getLogger().warning(
-                    "Metrics failed to start: " + e.getClass().getName() + ": "
-                            + e.getMessage());
-        }
+
+        // TODO Add new metrics here
 
         // Hook anticheat plugins here (AntiCheat, NCP...)
         try {
@@ -111,23 +122,12 @@ public class EasyJetpack extends JavaPlugin {
         } catch (Exception ignored) {
         }
 
-        getLogger().info(
-                "EasyJetpack (v" + getDescription().getVersion()
-                        + ") has been successfully enabled!");
+        getLogger().info("InfinityJetpacks (v" + getDescription().getVersion() + ") has been successfully enabled!");
     }
 
     @Override
     public void onDisable() {
         Bukkit.getServer().resetRecipes();
-    }
-
-    /**
-     * Obtains a instance of the plugin
-     *
-     * @return A EasyJetpack instance
-     */
-    public static EasyJetpack getInstance() {
-        return instance;
     }
 
     /**
@@ -137,7 +137,7 @@ public class EasyJetpack extends JavaPlugin {
      * @return If the player has been allowed to fly
      */
     public boolean haveAllowedFlying(Player player) {
-        // TODO: Add compatability with Essentials and other /fly plugins
+        // TODO: Add compatibility with Essentials and other /fly plugins
         return true;
     }
 }

@@ -1,9 +1,9 @@
-package net.jselby.ej;
+package me.paulvogel.easyjetpack;
 
-import net.jselby.ej.api.FlightTypes;
-import net.jselby.ej.api.Jetpack;
-import net.jselby.ej.api.JetpackEvent;
-import net.jselby.ej.impl.CraftingRecipe;
+import me.paulvogel.easyjetpack.api.FlightTypes;
+import me.paulvogel.easyjetpack.api.Jetpack;
+import me.paulvogel.easyjetpack.api.JetpackEvent;
+import me.paulvogel.easyjetpack.impl.CraftingRecipe;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

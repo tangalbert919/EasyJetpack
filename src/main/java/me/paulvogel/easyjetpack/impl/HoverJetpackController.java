@@ -1,17 +1,14 @@
-package net.jselby.ej.impl;
+package me.paulvogel.easyjetpack.impl;
 
-import net.jselby.ej.Utils;
-import net.jselby.ej.api.EasyJetpackAPI;
-import net.jselby.ej.api.FlightTypes;
-import net.jselby.ej.api.Jetpack;
-import net.jselby.ej.api.JetpackEvent;
+import me.paulvogel.easyjetpack.Utils;
+import me.paulvogel.easyjetpack.api.FlightTypes;
+import me.paulvogel.easyjetpack.api.Jetpack;
+import me.paulvogel.easyjetpack.api.JetpackEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.util.Vector;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -36,8 +33,8 @@ public class HoverJetpackController extends Jetpack {
     public String[] getDescription() {
         return new String[] {
                 ChatColor.RESET + "Allows you to control movement while wearing",
-                ChatColor.RESET + "a hover jetpack.",
-                ChatColor.RESET + "Rightclick to go down, Shift to go up, left click",
+                ChatColor.RESET + "a rocket jetpack.",
+                ChatColor.RESET + "Right click to go down, Shift to go up, left click",
                 ChatColor.RESET + "to go forward."
         };
     }
@@ -78,7 +75,7 @@ public class HoverJetpackController extends Jetpack {
 
     @Override
     public CraftingRecipe getCraftingRecipe() {
-        if (!getConfig().getBoolean("jetpacks.hover.craftable", true)) {
+        if (!getConfig().getBoolean("jetpacks.rocket.craftable", true)) {
             return null;
         }
         CraftingRecipe recipe = new CraftingRecipe(getItem());

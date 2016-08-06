@@ -1,10 +1,13 @@
-package net.jselby.ej.impl;
+package me.paulvogel.easyjetpack.impl;
 
-import net.jselby.ej.api.FlightTypes;
-import net.jselby.ej.api.Jetpack;
-import net.jselby.ej.api.JetpackEvent;
+import me.paulvogel.easyjetpack.api.FlightTypes;
+import me.paulvogel.easyjetpack.api.Jetpack;
+import me.paulvogel.easyjetpack.api.JetpackEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+
+import darknesgaming.jetpacks.EntryJetpack;
+import darknesgaming.jetpacks.InfinityJetpack;
 
 /**
  * Traditional Fall-Boots from plugin versions past. Fully compatible with them
@@ -42,7 +45,9 @@ public class Fallboots extends Jetpack {
         if (getConfig().getBoolean("jetpacks.boots.jetpackrequired", false)) {
             if (!event.isPlayerWearing(TraditionalJetpack.class)
                     && !event.isPlayerWearing(TeleportJetpack.class)
-                    && !event.isPlayerWearing(BurstJetpack.class)) {
+                    && !event.isPlayerWearing(BurstJetpack.class)
+                    && !event.isPlayerWearing(EntryJetpack.class)
+                    && !event.isPlayerWearing(InfinityJetpack.class)) {
                 return;
             }
         }

@@ -1,8 +1,8 @@
-package net.jselby.ej.api;
+package me.paulvogel.easyjetpack.api;
 
-import net.jselby.ej.EasyJetpack;
-import net.jselby.ej.Utils;
-import net.jselby.ej.impl.CraftingRecipe;
+import me.paulvogel.easyjetpack.EasyJetpack;
+import me.paulvogel.easyjetpack.Utils;
+import me.paulvogel.easyjetpack.impl.CraftingRecipe;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
@@ -170,20 +170,20 @@ public abstract class Jetpack {
     public abstract boolean isRepairingDisabled();
 
     /**
-     * A representation of the slot's that the player can have
-     *
-     * @author James
-     */
-    public static enum Slot {
-        HELMET, CHESTPLATE, LEGGINGS, BOOTS, HELD_ITEM
-    }
-
-    /**
      * Keep calling this jetpack until it runs out of fuel.
      *
      * @return Should this jetpack be placed on a timer?
      */
     public boolean keepCalling() {
         return false;
+    }
+
+    /**
+     * A representation of the slot's that the player can have
+     *
+     * @author James
+     */
+    public enum Slot {
+        HELMET, CHESTPLATE, LEGGINGS, BOOTS, HELD_ITEM
     }
 }
