@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import me.paulvogel.easyjetpack.impl.AntiCheatImpl;
+import me.paulvogel.easyjetpack.impl.NCPImpl;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,12 @@ public abstract class CheatPluginAdapter {
         if (Bukkit.getServer().getPluginManager().getPlugin("AntiCheatReloaded") != null) {
             System.out.println("AntiCheatReloaded found! Hooking API...");
             adapters.add(new AntiCheatImpl());
+        }
+        else if (Bukkit.getServer().getPluginManager().getPlugin("NoCheatPlus") != null) {
+        	System.out.println("NoCheatPlus found! Hooking API...");
+        	adapters.add(new NCPImpl());
+        	System.out.println("WARNING! This is an experimental implementation for");
+        	System.out.println("InfinityJetpacks to NoCheatPlus! Please be careful!");
         }
     }
 

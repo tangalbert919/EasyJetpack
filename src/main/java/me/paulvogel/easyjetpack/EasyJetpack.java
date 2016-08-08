@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import darknesgaming.jetpacks.CraftableElytra;
 import darknesgaming.jetpacks.CraftableLavaBucket;
 import darknesgaming.jetpacks.EntryJetpack;
 import darknesgaming.jetpacks.InfinityJetpack;
@@ -106,6 +107,8 @@ public class EasyJetpack extends JavaPlugin {
         	manager.addJetpack(new SlimePack());
         if (getConfig().getBoolean("jetpacks.rocketboots.enabled", true))
         	manager.addJetpack(new RocketBoots());
+        if (getConfig().getBoolean("jetpacks.elytra.enabled", true))
+            manager.addJetpack(new CraftableElytra());
         
         // Everything created by other companies.
 
@@ -116,7 +119,10 @@ public class EasyJetpack extends JavaPlugin {
 
         // TODO Add new metrics here
 
-        // Hook anticheat plugins here (AntiCheat, NCP...)
+        /**
+         * Anti-Cheat plugin InfinityJetpacks can hook up to:
+         * AntiCheatReloaded, NoCheatPlus
+         */
         try {
             CheatPluginAdapter.run();
         } catch (Exception ignored) {

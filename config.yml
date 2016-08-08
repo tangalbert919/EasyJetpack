@@ -1,5 +1,5 @@
 # InfinityJetpack configuration file
-# Version v1.7.0 Beta 1
+# Version v1.7.0 Beta 4
 # Based on EasyJetpack by j_selby
 
 # These Jetpacks were created by j_selby.
@@ -104,6 +104,15 @@ jetpacks:
         material: LEATHER_BOOTS
         # Is the jetpack craftable?
         craftable: true
+    elytra:
+        # Is this elytra enabled?
+        enabled: true
+        # The name of the meterial used.
+        material: ELYTRA
+        # Is the elytra craftable?
+        craftable: true
+        # Is the elytra repairable?
+        antianvil: true
 # Infinity Laboratories Secret Items
 # These secret items can only be created by learning the crafting
 # recipe, which is kept secret by Infinity Laboratories.

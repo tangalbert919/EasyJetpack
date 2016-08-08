@@ -92,7 +92,8 @@ public class Utils {
      * @param factor        The factor to kill the coal by
      * @return If the operation was a success
      */
-    public static boolean useFuel(Player player, boolean mustBeHolding,
+    @SuppressWarnings("deprecation")
+	public static boolean useFuel(Player player, boolean mustBeHolding,
                                   double factor) {
         Material fuel = Material.getMaterial(EasyJetpack.getInstance()
                 .getConfig()
@@ -241,6 +242,7 @@ public class Utils {
      * @param player        The player to obtain the item from
      * @param mustBeHolding Should the coal end up in the players hand?
      */
+    @SuppressWarnings("deprecation")
     public static void shuffleCoal(Player player, boolean mustBeHolding) {
         Material fuelMaterial = Material.getMaterial(EasyJetpack.getInstance().getConfig()
                 .getString("fuel.material", "COAL"));
@@ -286,6 +288,7 @@ public class Utils {
      * @param slot   The slot that should be checked
      * @return A ItemStack, or null
      */
+    @SuppressWarnings("deprecation")
     public static ItemStack getSlot(Player player, Slot slot) {
         switch (slot) {
             case HELD_ITEM:
@@ -309,6 +312,7 @@ public class Utils {
      * @param player The player who will be modified
      * @param slot   The slot that will be modified
      */
+    @SuppressWarnings("deprecation")
     public static void setSlot(Player player, Slot slot, ItemStack is) {
         switch (slot) {
             case HELD_ITEM:
