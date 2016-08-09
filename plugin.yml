@@ -1,6 +1,6 @@
 name: InfinityJetpacks
 main: me.paulvogel.easyjetpack.EasyJetpack
-version: 1.7.0 Beta 4
+version: 1.7.0 Release
 authors: [j_selby, Paul Vogel, DarknesGaming]
 softdepend: [AntiCheatReloaded, NoCheatPlus]
 permissions:
@@ -29,7 +29,7 @@ permissions:
       description: Secret Nether Star recipe from Infinity Laboratories
       default: true
    easyjetpack.elytra:
-      description: The Elytra recipe from Infinity Laboratories
+      description: The Elytra recipe from Infinity Laboratories.
       default: true
 commands:
    ej:
