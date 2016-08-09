@@ -107,8 +107,9 @@ public class EasyJetpack extends JavaPlugin {
         	manager.addJetpack(new SlimePack());
         if (getConfig().getBoolean("jetpacks.rocketboots.enabled", true))
         	manager.addJetpack(new RocketBoots());
+        // The InfinityRecipes plugin is required for these next ones.
         if (getConfig().getBoolean("jetpacks.elytra.enabled", true))
-            manager.addJetpack(new CraftableElytra());
+        	manager.addJetpack(new CraftableElytra());
         
         // Everything created by other companies.
 
