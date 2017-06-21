@@ -1,10 +1,10 @@
-package me.paulvogel.easyjetpack.impl;
+package main.java.me.paulvogel.easyjetpack.impl;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 
-import me.paulvogel.easyjetpack.CheatPluginAdapter;
+import main.java.me.paulvogel.easyjetpack.CheatPluginAdapter;
 import net.gravitydevelopment.anticheat.api.AntiCheatAPI;
 import net.gravitydevelopment.anticheat.check.CheckType;
 

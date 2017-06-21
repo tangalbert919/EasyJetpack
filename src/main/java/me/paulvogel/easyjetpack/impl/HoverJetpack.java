@@ -1,11 +1,11 @@
-package me.paulvogel.easyjetpack.impl;
+package main.java.me.paulvogel.easyjetpack.impl;
 
-import me.paulvogel.easyjetpack.Utils;
-import me.paulvogel.easyjetpack.VisualCandy;
-import me.paulvogel.easyjetpack.api.EasyJetpackAPI;
-import me.paulvogel.easyjetpack.api.FlightTypes;
-import me.paulvogel.easyjetpack.api.Jetpack;
-import me.paulvogel.easyjetpack.api.JetpackEvent;
+import main.java.me.paulvogel.easyjetpack.Utils;
+import main.java.me.paulvogel.easyjetpack.VisualCandy;
+import main.java.me.paulvogel.easyjetpack.api.EasyJetpackAPI;
+import main.java.me.paulvogel.easyjetpack.api.FlightTypes;
+import main.java.me.paulvogel.easyjetpack.api.Jetpack;
+import main.java.me.paulvogel.easyjetpack.api.JetpackEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.util.Vector;

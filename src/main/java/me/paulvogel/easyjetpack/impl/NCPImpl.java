@@ -1,10 +1,10 @@
-package me.paulvogel.easyjetpack.impl;
+package main.java.me.paulvogel.easyjetpack.impl;
 
+import fr.neatmonster.nocheatplus.hooks.NCPExemptionManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import fr.neatmonster.nocheatplus.hooks.NCPExemptionManager;
-import me.paulvogel.easyjetpack.CheatPluginAdapter;
+import main.java.me.paulvogel.easyjetpack.CheatPluginAdapter;
 import fr.neatmonster.nocheatplus.checks.CheckType;
 
 public class NCPImpl extends CheatPluginAdapter {
@@ -16,7 +16,7 @@ public class NCPImpl extends CheatPluginAdapter {
             NCPExemptionManager.exemptPermanently(player, CheckType.MOVING_SURVIVALFLY);
             break;
         case NOCLIP:
-            NCPExemptionManager.exemptPermanently(player, CheckType.MOVING_PASSABLE);
+            NCPExemptionManager.exemptPermanently(player, CheckType.MOVING_NOFALL);
             break;
     }
 	}
@@ -28,7 +28,7 @@ public class NCPImpl extends CheatPluginAdapter {
 			NCPExemptionManager.unexempt(player, CheckType.MOVING_SURVIVALFLY);
 			break;
 		case NOCLIP:
-			NCPExemptionManager.unexempt(player, CheckType.MOVING_PASSABLE);
+			NCPExemptionManager.unexempt(player, CheckType.MOVING_NOFALL);
 			
 		}
 
@@ -41,7 +41,7 @@ public class NCPImpl extends CheatPluginAdapter {
 			NCPExemptionManager.isExempted(player, CheckType.MOVING_SURVIVALFLY);
 			break;
 		case NOCLIP:
-			NCPExemptionManager.isExempted(player, CheckType.MOVING_PASSABLE);
+			NCPExemptionManager.isExempted(player, CheckType.MOVING_NOFALL);
 			break;
 		}
 		return false;

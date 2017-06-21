@@ -1,8 +1,8 @@
-package me.paulvogel.easyjetpack.api;
+package main.java.me.paulvogel.easyjetpack.api;
 
-import me.paulvogel.easyjetpack.EasyJetpack;
-import me.paulvogel.easyjetpack.Utils;
-import me.paulvogel.easyjetpack.impl.CraftingRecipe;
+import main.java.me.paulvogel.easyjetpack.EasyJetpack;
+import main.java.me.paulvogel.easyjetpack.Utils;
+import main.java.me.paulvogel.easyjetpack.impl.CraftingRecipe;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;

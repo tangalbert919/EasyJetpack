@@ -1,6 +1,6 @@
-package me.paulvogel.easyjetpack.api;
+package main.java.me.paulvogel.easyjetpack.api;
 
-import me.paulvogel.easyjetpack.Utils;
+import main.java.me.paulvogel.easyjetpack.Utils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
@@ -50,12 +50,10 @@ public class JetpackEvent implements Cancellable {
         return type;
     }
 
-    @Override
     public boolean isCancelled() {
         return cancelled;
     }
 
-    @Override
     public void setCancelled(boolean isCancelled) {
         cancelled = isCancelled;
     }

@@ -1,8 +1,8 @@
-package me.paulvogel.easyjetpack;
+package main.java.me.paulvogel.easyjetpack;
 
-import me.paulvogel.easyjetpack.api.EasyJetpackAPI;
-import me.paulvogel.easyjetpack.api.FlightTypes;
-import me.paulvogel.easyjetpack.api.JetpackEvent;
+import main.java.me.paulvogel.easyjetpack.api.EasyJetpackAPI;
+import main.java.me.paulvogel.easyjetpack.api.FlightTypes;
+import main.java.me.paulvogel.easyjetpack.api.JetpackEvent;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

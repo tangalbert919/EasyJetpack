@@ -1,4 +1,4 @@
-package me.paulvogel.easyjetpack;
+package main.java.me.paulvogel.easyjetpack;
 
 import java.io.File;
 
@@ -6,23 +6,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import darknesgaming.jetpacks.CraftableElytra;
-import darknesgaming.jetpacks.CraftableLavaBucket;
-import darknesgaming.jetpacks.EntryJetpack;
-import darknesgaming.jetpacks.InfinityJetpack;
-import darknesgaming.jetpacks.InfinityRocketPack;
-import darknesgaming.jetpacks.RocketBoots;
-import darknesgaming.jetpacks.SecretItem1;
-import darknesgaming.jetpacks.SecretItem2;
-import darknesgaming.jetpacks.SecretItem3;
-import me.paulvogel.easyjetpack.api.EasyJetpackAPI;
-import me.paulvogel.easyjetpack.impl.BurstJetpack;
-import me.paulvogel.easyjetpack.impl.Fallboots;
-import me.paulvogel.easyjetpack.impl.HoverJetpack;
-import me.paulvogel.easyjetpack.impl.HoverJetpackController;
-import me.paulvogel.easyjetpack.impl.TeleportJetpack;
-import me.paulvogel.easyjetpack.impl.TraditionalJetpack;
-import reditto.jetpacks.SlimePack;
+import main.java.me.paulvogel.easyjetpack.api.EasyJetpackAPI;
+import main.java.me.paulvogel.easyjetpack.impl.BurstJetpack;
+import main.java.me.paulvogel.easyjetpack.impl.Fallboots;
+import main.java.me.paulvogel.easyjetpack.impl.HoverJetpack;
+import main.java.me.paulvogel.easyjetpack.impl.HoverJetpackController;
+import main.java.me.paulvogel.easyjetpack.impl.TeleportJetpack;
+import main.java.me.paulvogel.easyjetpack.impl.TraditionalJetpack;
 
 /**
  * The main EasyJetpack class. This registers the default Jetpacks, as well as
@@ -88,28 +78,6 @@ public class EasyJetpack extends JavaPlugin {
         }
         if (getConfig().getBoolean("jetpacks.boots.enabled", true))
             manager.addJetpack(new Fallboots());
-        // Everything created by DarknesGaming, leader of the Infinity Laboratories
-        if (getConfig().getBoolean("jetpacks.entry.enabled", true))
-        	manager.addJetpack(new EntryJetpack());
-        if (getConfig().getBoolean("jetpacks.secretitem1.enabled", true))
-        	manager.addJetpack(new SecretItem1());
-        if (getConfig().getBoolean("jetpacks.infinity.enabled", true))
-        	manager.addJetpack(new InfinityJetpack());
-        if (getConfig().getBoolean("jetpacks.secretitem2.enabled", true))
-        	manager.addJetpack(new SecretItem2());
-        if (getConfig().getBoolean("jetpacks.lavabucket.enabled", true))
-        	manager.addJetpack(new CraftableLavaBucket());
-        if (getConfig().getBoolean("jetpacks.secretitem3.enabled", true))
-        	manager.addJetpack(new SecretItem3());
-        if (getConfig().getBoolean("jetpacks.infinitypack.enabled", true))
-        	manager.addJetpack(new InfinityRocketPack());
-        if (getConfig().getBoolean("jetpacks.slimepack.enabled", true))
-        	manager.addJetpack(new SlimePack());
-        if (getConfig().getBoolean("jetpacks.rocketboots.enabled", true))
-        	manager.addJetpack(new RocketBoots());
-        // The InfinityRecipes plugin is required for these next ones.
-        if (getConfig().getBoolean("jetpacks.elytra.enabled", true))
-        	manager.addJetpack(new CraftableElytra());
         
         // Everything created by other companies.
 

@@ -1,4 +1,4 @@
-package me.paulvogel.easyjetpack.api;
+package main.java.me.paulvogel.easyjetpack.api;
 
 /**
  * Enum containing various movement types

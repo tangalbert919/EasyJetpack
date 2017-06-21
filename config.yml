@@ -1,8 +1,6 @@
-# InfinityJetpack configuration file
-# Version 1.7.0 Release
-# Based on EasyJetpack by j_selby
+# EasyJetpack configuration file
+# Version 1.8.0 Release
 
-# These Jetpacks were created by j_selby.
 jetpacks:
     # Traditional, or 'puff' Jetpack
     traditional:
@@ -60,90 +58,6 @@ jetpacks:
         jetpackrequired: false
         # Is the Jetpack repairable?
         antianvil: true
-# Infinity Laboratories Jetpacks
-# These jetpacks have been created by Infinity Laboratories, and
-# are distributed by other companies.
-    entry:
-        # Is this jetpack enabled?
-        enabled: true
-        # The name of the material used.
-        material: LEATHER_CHESTPLATE
-        # Is the jetpack craftable?
-        craftable: true
-        # Is the jetpack repairable?
-        antianvil: true
-    infinity:
-        # Is this jetpack enabled?
-        enabled: true
-        # The name of the material used.
-        material: DIAMOND_CHESTPLATE
-        # Is the jetpack craftable?
-        craftable: true
-        # Is the jetpack repairable?
-        antianvil: true
-    infinityrocket:
-        # Is this jetpack enabled?
-        enabled: true
-        # The name of the material used.
-        material: DIAMOND_CHESTPLATE
-        # Is the jetpack craftable?
-        craftable: true
-        # Is this jetpack repairable?
-        antianvil: true
-    slimepack:
-        # Is this jetpack enabled?
-        enabled: true
-        # The name of the material used.
-        material: LEATHER_CHESTPLATE
-        # Is the jetpack craftable?
-        craftable: true
-    rocketboots:
-        # Is this jetpack enabled?
-        enabled: true
-        # The name of the material used.
-        material: LEATHER_BOOTS
-        # Is the jetpack craftable?
-        craftable: true
-    elytra:
-        # Is this elytra enabled?
-        enabled: true
-        # The name of the meterial used.
-        material: ELYTRA
-        # Is the elytra craftable?
-        craftable: true
-        # Is the elytra repairable?
-        antianvil: true
-# Infinity Laboratories Secret Items
-# These secret items can only be created by learning the crafting
-# recipe, which is kept secret by Infinity Laboratories.
-    secretitem1:
-        # Is this item enabled?
-        enabled: true
-        # The name of the material used.
-        material: DIAMOND_BLOCK
-        # Is this item craftable?
-        craftable: true
-    lavabucket:
-        # Is this item enabled?
-        enabled: true
-        # The name of the material used.
-        material: LAVA_BUCKET
-        # Is this item craftable?
-        craftable: true
-    secretitem2:
-        # Is this item enabled?
-        enabled: true
-        # The name of the material used.
-        material: EMERALD
-        # Is this item craftable?
-        craftable: true
-    secretitem3:
-        # Is this item enabled?
-        enabled: true
-        # The name of the material used.
-        material: NETHER_STAR
-        # Is this item craftable?
-        craftable: true
 fuel:
     # Is fuel usage enabled?
     enabled: true

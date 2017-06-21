@@ -1,7 +1,7 @@
-package me.paulvogel.easyjetpack;
+package main.java.me.paulvogel.easyjetpack;
 
-import me.paulvogel.easyjetpack.api.EasyJetpackAPI;
-import me.paulvogel.easyjetpack.api.Jetpack;
+import main.java.me.paulvogel.easyjetpack.api.EasyJetpackAPI;
+import main.java.me.paulvogel.easyjetpack.api.Jetpack;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -13,7 +13,6 @@ public class CommandListener implements CommandExecutor {
     private final static String PREFIX = ChatColor.BLUE + "[" + ChatColor.LIGHT_PURPLE
             + "IJ" + ChatColor.BLUE + "]" + ChatColor.RESET + " ";
 
-    @Override
     public boolean onCommand(CommandSender sender, Command command,
                              String name, String[] args) {
         if (!sender.hasPermission("easyjetpack.admin")) {
@@ -105,9 +104,9 @@ public class CommandListener implements CommandExecutor {
      * @param sender
      */
     private void showAuthors(CommandSender sender) {
-    	sender.sendMessage(PREFIX + "InfinityJetpack authors:");
-    	sender.sendMessage(PREFIX + "   Creator of IJ: DarknesGaming");
-    	sender.sendMessage(PREFIX + "   Based on EasyJetpack by: j_selby");
+    	sender.sendMessage(PREFIX + "EasyJetpack authors:");
+    	sender.sendMessage(PREFIX + "   Creator of EJ: j_selby");
+    	sender.sendMessage(PREFIX + "   Contributor: DarknesGaming");
     	sender.sendMessage(PREFIX + "   1.9.4 compatibility: PaulVogel");
     }
 

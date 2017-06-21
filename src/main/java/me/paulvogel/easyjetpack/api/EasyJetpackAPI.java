@@ -1,6 +1,6 @@
-package me.paulvogel.easyjetpack.api;
+package main.java.me.paulvogel.easyjetpack.api;
 
-import me.paulvogel.easyjetpack.JetpackManager;
+import main.java.me.paulvogel.easyjetpack.JetpackManager;
 
 public class EasyJetpackAPI {
     private static JetpackManager mgr = null;

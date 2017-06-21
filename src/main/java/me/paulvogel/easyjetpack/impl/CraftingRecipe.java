@@ -1,4 +1,4 @@
-package me.paulvogel.easyjetpack.impl;
+package main.java.me.paulvogel.easyjetpack.impl;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

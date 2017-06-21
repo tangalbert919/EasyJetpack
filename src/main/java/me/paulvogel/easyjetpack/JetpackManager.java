@@ -1,9 +1,9 @@
-package me.paulvogel.easyjetpack;
+package main.java.me.paulvogel.easyjetpack;
 
-import me.paulvogel.easyjetpack.api.FlightTypes;
-import me.paulvogel.easyjetpack.api.Jetpack;
-import me.paulvogel.easyjetpack.api.JetpackEvent;
-import me.paulvogel.easyjetpack.impl.CraftingRecipe;
+import main.java.me.paulvogel.easyjetpack.api.FlightTypes;
+import main.java.me.paulvogel.easyjetpack.api.Jetpack;
+import main.java.me.paulvogel.easyjetpack.api.JetpackEvent;
+import main.java.me.paulvogel.easyjetpack.impl.CraftingRecipe;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -106,7 +106,6 @@ public class JetpackManager {
                     }
 
                     Runnable runnable = new Runnable() {
-                        @Override
                         public void run() {
                             if (isCrouching(event.getPlayer()) || next.keepCalling()) {
                                 boolean success = onJetpackEvent(new JetpackEvent(

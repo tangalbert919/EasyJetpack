@@ -1,6 +1,6 @@
-package me.paulvogel.easyjetpack;
+package main.java.me.paulvogel.easyjetpack;
 
-import me.paulvogel.easyjetpack.api.Jetpack.Slot;
+import main.java.me.paulvogel.easyjetpack.api.Jetpack.Slot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
