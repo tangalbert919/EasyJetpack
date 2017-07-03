@@ -2,6 +2,9 @@ package main.java.me.paulvogel.easyjetpack;
 
 import java.io.File;
 
+import main.java.me.paulvogel.easyjetpack.darknesgaming.CraftableElytra;
+import main.java.me.paulvogel.easyjetpack.darknesgaming.InfinityPack;
+import main.java.me.paulvogel.easyjetpack.darknesgaming.InfinityRocketPack;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -79,8 +82,13 @@ public class EasyJetpack extends JavaPlugin {
         if (getConfig().getBoolean("jetpacks.boots.enabled", true))
             manager.addJetpack(new Fallboots());
         
-        // Everything created by other companies.
-
+        // Everything created by DarknesGaming
+        if (getConfig().getBoolean("jetpacks.infinitypack.enabled", true))
+            manager.addJetpack(new InfinityPack());
+        if (getConfig().getBoolean("jetpacks.infinityrocket.enabled", true))
+            manager.addJetpack(new InfinityRocketPack());
+        if (getConfig().getBoolean("jetpacks.elytra.enabled", true))
+            manager.addJetpack(new CraftableElytra());
         // Make the API ready for use
         new EasyJetpackAPI(manager);
 

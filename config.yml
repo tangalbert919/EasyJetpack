@@ -58,6 +58,28 @@ jetpacks:
         jetpackrequired: false
         # Is the Jetpack repairable?
         antianvil: true
+    elytra:
+        # Is this elytra recipe enabled?
+        enabled: true
+        # The name of the Material used.
+        material: ELYTRA
+        # Is this elytra craftable?
+        craftable: true
+        # Is this elytra repairable?
+        antianvil: true
+    infinitypack:
+        # Is this jetpack enabled?
+        enabled: true
+        # The name of the material used.
+        material: DIAMOND_CHESTPLATE
+        # Is this jetpack craftable?
+        craftable: true
+        # Is this jetpack repairable?
+        antianvil: false
+    infinityrocket:
+        enabled: true
+        material: DIAMOND_CHESTPLATE
+        craftable: true
 fuel:
     # Is fuel usage enabled?
     enabled: true

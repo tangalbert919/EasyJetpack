@@ -5,8 +5,8 @@ import org.bukkit.entity.Player;
 
 
 import main.java.me.paulvogel.easyjetpack.CheatPluginAdapter;
-import net.gravitydevelopment.anticheat.api.AntiCheatAPI;
-import net.gravitydevelopment.anticheat.check.CheckType;
+import com.rammelkast.anticheatreloaded.api.AntiCheatAPI;
+import com.rammelkast.anticheatreloaded.check.CheckType;
 
 public class AntiCheatImpl extends CheatPluginAdapter {
 

@@ -183,7 +183,7 @@ public class Utils {
         }
 
         // Now we need to calculate the fuel usage
-        short fuelUsage;
+        double fuelUsage;
 
         // If this coal isn't burning, give it a full life.
         if (!isBurning) {
@@ -192,10 +192,10 @@ public class Utils {
             // We need to dissect this from the metadata.
             String line = foundFuel.getItemMeta().getLore().get(0);
 
-            fuelUsage = Short.parseShort(ChatColor.stripColor(line.split("%")[0]));
+            fuelUsage = Double.parseDouble(ChatColor.stripColor(line.split("%")[0]));
         }
 
-        fuelUsage -= (((double) 100) / ((double) 10) / factor);
+        fuelUsage -= ( 100 / 10 / factor);
 
         // Compile the new metadata up.
         List<String> newLore = new ArrayList<String>();
