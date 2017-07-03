@@ -39,6 +39,7 @@
                                     <exclude>*:AntiCheat</exclude>
                                     <exclude>*:ProtocolLib</exclude>
                                     <exclude>*:BukkitExecutors</exclude>
+                                    <exclude>*:NoCheatPlus</exclude>
                                 </excludes>
                             </artifactSet>
                             <minimizeJar>true</minimizeJar>
@@ -51,16 +52,12 @@
 
     <repositories>
         <repository>
-            <id>Plugin Metrics</id>
-            <url>http://repo.mcstats.org/content/repositories/public</url>
+            <id>spigot-repo</id>
+            <url>https://repo.md-5.net/content/repositories/snapshots</url>
         </repository>
         <repository>
-            <id>Bukkit Repository</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots</url>
-        </repository>
-        <repository>
-            <id>gravity-repo</id>
-            <url>http://repo.gravitydevelopment.net/</url>
+            <id>spigot-stable</id>
+            <url>https://repo.md-5.net/content/repositories/releases</url>
         </repository>
     </repositories>
 
@@ -69,18 +66,13 @@
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>1.12-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.mcstats.bukkit</groupId>
-            <artifactId>metrics</artifactId>
-            <version>R6</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.gravitydevelopment.anticheat</groupId>
-            <artifactId>AntiCheat</artifactId>
-            <version>2.0</version>
-            <scope>compile</scope>
+            <groupId>fr.neatmonster</groupId>
+            <artifactId>nocheatplus</artifactId>
+            <version>3.15.1-RC</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

@@ -2,7 +2,7 @@ name: InfinityJetpacks
 main: main.java.me.paulvogel.easyjetpack.EasyJetpack
 version: 1.8.1 Release
 authors: [j_selby, Paul Vogel, DarknesGaming]
-softdepend: [AntiCheatReloaded, NoCheatPlus]
+softdepend: [NoCheatPlus]
 permissions:
    easyjetpack.jetpackname:
       description: Allows a player to use a jetpack
